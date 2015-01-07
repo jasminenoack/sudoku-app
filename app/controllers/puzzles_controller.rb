@@ -11,7 +11,6 @@ class PuzzlesController < ApplicationController
 
   def new
     @puzzle = Puzzle.new
-    @puzzle.board = @puzzle.setup_board
   end
 
   def create
