@@ -1,0 +1,14 @@
+
+<%= @puzzle.board %>
+
+<%= form_for @puzzle do |f| %>
+    <% (0..8).each do |row| %>
+      <% (0..8).each do |column| %>
+        <%= text_field_tag("#{[row,column]}") %>
+      <% end %>
+    <% end %>
+    <%= submit_tag("Generate") %>
+<% end %>
+
+<%= @puzzle.board %>
+
