@@ -2,11 +2,31 @@
 <%= @puzzle.board %>
 
 <%= form_for @puzzle do |f| %>
-    <% (0..8).each do |row| %>
-      <% (0..8).each do |column| %>
-        <%= text_field_tag("#{[row,column]}") %>
-      <% end %>
+<table id="main">
+
+    <% (0..8).each do |square| %>
+    <% if square % 3 == 0 %>
+    <tr>
+    <%end%>
+
+
+       <td>
+        <% (0..8).each do |place| %>
+       
+          <%= text_field_tag "#{[square,place]}",nil, :class => "square" %>
+          <% if place % 3 == 2 %>
+          <br>
+          <% end %>
+        
+        <% end %>
+      </td>
+
+    <% if square % 3 == 2 %>
+      </tr>
+    <%end%>
     <% end %>
+
+  </table>
     <%= submit_tag("Generate") %>
 <% end %>
 

@@ -1,3 +1,28 @@
 // Place all the styles related to the puzzles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#main {
+  border: 3px solid black;
+  border-collapse: collapse;
+  text-align: center
+}
+
+#main td {
+  border: 3px solid black;
+  text-align: center;
+  margin: 0
+}
+
+.square {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin: 2px;
+}
+
+#inner td {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
