@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'puzzles/index' => 'puzzles#index'
+
 
 
 

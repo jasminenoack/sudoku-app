@@ -1,5 +1,30 @@
 class Puzzle < ActiveRecord::Base
   serialize :board
+ 
+
+
+  def blank_board
+    board=Array.new(81, 0)
+  end
+
+  def update_board(hash)
+    hash.each do | place, value |
+      board[9*place[0]+place[1]]=value
+    end
+    board
+  end
+
+  def display_board
+    switch_board
+  end
+
+
+end
+
+
+
+
+=begin
 
   #switches between display array and working array
   def switch_board(array = board)
@@ -23,13 +48,4 @@ class Puzzle < ActiveRecord::Base
     result.flatten
   end
 
-  def setup_board(parameters)
-    @board=switch_board(parameters)
-  end
-
-  def display_board
-    switch_board
-  end
-
-
-end
+=end

@@ -1,34 +1,6 @@
 
-<%= @puzzle.board %>
-
-<%= form_for @puzzle do |f| %>
-<table id="main">
-
-    <% (0..8).each do |square| %>
-    <% if square % 3 == 0 %>
-    <tr>
-    <%end%>
 
 
-       <td>
-        <% (0..8).each do |place| %>
-       
-          <%= text_field_tag "#{[square,place]}",nil, :class => "square" %>
-          <% if place % 3 == 2 %>
-          <br>
-          <% end %>
-        
-        <% end %>
-      </td>
+<%= render :partial => 'displayboard', :locals => {:edit_form => true , :board => @puzzle.blank_board} %>
 
-    <% if square % 3 == 2 %>
-      </tr>
-    <%end%>
-    <% end %>
-
-  </table>
-    <%= submit_tag("Generate") %>
-<% end %>
-
-<%= @puzzle.board %>
 

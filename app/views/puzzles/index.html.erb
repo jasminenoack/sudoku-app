@@ -1,3 +1,7 @@
+<h1> Puzzles </h1>
+<%= link_to "New Puzzle", new_puzzle_path %>
 <% @puzzles.each do |puzzle| %>
+<br>
 <%= link_to "Puzzle #{puzzle.id}", puzzle_path(puzzle.id) %>
-<% end %>
+<%= link_to "Solve Puzzle", edit_puzzle_path(puzzle.id) %>
+<% end %> 

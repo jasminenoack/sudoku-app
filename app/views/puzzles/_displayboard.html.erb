@@ -1,39 +1,37 @@
-<% board=@puzzle.display_board%>
-
-
+<%= form_for @puzzle do |f| %>
 <table id="main">
-
-      <% (0..8).each do |square| %>
-        <% if square % 3 == 0 %>
-          <tr>
-        <%end%>
-
-
-        <td>
-          <table id="inner">
-            <% (0..8).each do |place| %>
-              <% if place % 3 == 0 %>
-                <tr>
-              <% end %>
+  <% (0..8).each do |square| %>
+    <% if square % 3 == 0 %>
+      <tr>
+    <%end%>
+    <td>
+      <table id="inner">
+        <% (0..8).each do |place| %>
+          <% if place % 3 == 0 %>
+            <tr>
+          <% end %>
               <td>
-              <% num = board.shift %>
-              <% unless num == 0 %>
-                <%= num  %>
-              <% end %>
+                <% location = 9*square + place %>
+                <% unless board[location]==0 %>
+                  <%= board[location] %>
+                <% else %>
+                  <% if edit_form %>  
+                    <%= text_field_tag "#{[square,place]}",nil, :class => "square" %>
+                  <% end %>
+                <% end %>
               </td>
-              <% if place % 3 == 2 %>
-                </tr>
-              <% end %>
-        
-            <% end %>
-          </table>
-        </td>
-
-        <% if square % 3 == 2 %>
-          </tr>
-        <%end%>
-      <% end %>
-
-  </table>
-
-
+          <% if place % 3 == 2 %>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </td>
+    <% if square % 3 == 2 %>
+      </tr>
+    <%end%>
+  <% end %>
+</table>
+<% if edit_form %>
+  <%= submit_tag("Update") %>
+<% end %>
+<% end %>

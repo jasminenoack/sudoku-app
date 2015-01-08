@@ -1,11 +1,13 @@
 class PuzzlesController < ApplicationController
-
+  
+  #creates a hash [square, place in square] => value
   def parse_params
     squares=[]
     params.each do |item|
       squares<<item if item[0].count(",")>0
     end
-    squares.map{|x| x[1].to_i}
+    squares=squares.select{|x| x[1]!=""}
+    squares=squares.map {|x| [x[0].split(",").map{|num| num.to_i}, x[1].to_i]}.to_h
   end
 
   def index
@@ -18,8 +20,9 @@ class PuzzlesController < ApplicationController
 
   def create
     @puzzle=Puzzle.new
+    @puzzle.board=@puzzle.blank_board
     @squares=parse_params
-    @puzzle.board=@puzzle.setup_board(@squares)
+    @puzzle.board=@puzzle.update_board(@squares)
     @puzzle.save
     redirect_to puzzle_path(@puzzle.id)
   end
@@ -27,7 +30,18 @@ class PuzzlesController < ApplicationController
   def show
     @puzzle=Puzzle.find(params[:id])
   end
+  
+  def edit
+    @puzzle = Puzzle.find(params[:id])
+  end
 
+  def update
+    @puzzle = Puzzle.find(params[:id])
+    @squares = parse_params
+    @puzzle.update_board(@squares)
+    @puzzle.save
+    redirect_to edit_puzzle_path(@puzzle.id)
+  end
 
 
 end
