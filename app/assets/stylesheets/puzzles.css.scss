@@ -3,26 +3,50 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #main {
-  border: 3px solid black;
+
   border-collapse: collapse;
-  text-align: center
+  text-align: center;
+  border-radius: 0;
+  margin-bottom: 5px;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  border-radius: 2em;
+  background-color: #A39BA8;
+
 }
 
 #main td {
   border: 3px solid black;
   text-align: center;
-  margin: 0
 }
 
 .square {
   width: 20px;
   height: 20px;
   text-align: center;
-  margin: 2px;
+
+}
+
+#inner {
+  padding: 3px;
 }
 
 #inner td {
   width: 30px;
   height: 30px;
   border: 1px solid black;
+}
+
+#index {
+
+  td {
+  padding: 5px;
+  background-color: #B8C5D6;
+  border-radius: 0.5em;
+
+  }
 }

@@ -1,3 +1,7 @@
+<div id = "puzzle"
+<% edit_form ||= nil %>
+<% solve_form ||= nil %>
+<% create_form ||= nil %>
 <%= form_for @puzzle do |f| %>
 <table id="main">
   <% (0..8).each do |square| %>
@@ -12,13 +16,27 @@
           <% end %>
               <td>
                 <% location = 9*square + place %>
-                <% unless board[location]==0 %>
-                  <%= board[location] %>
-                <% else %>
-                  <% if edit_form %>  
-                    <%= text_field_tag "#{[square,place]}",nil, :class => "square" %>
+                  <% if edit_form  %>
+                    <% if board[location]==0 %>
+                      <%= nil %>
+                    <% else %> 
+                      <%= text_field_tag "#{[square,place]}", "#{board[location]}", :class => "square" %>
+                    <% end %>
+                  <% elsif solve_form %>
+                    <% unless board[location]==0 %>
+                      <%= board[location] %>
+                    <% else %> 
+                      <%= text_field_tag "#{[square,place]}", nil, :class => "square" %>
+                    <%end %>
+                  <% elsif create_form %>
+                    <%= text_field_tag "#{[square,place]}", nil, :class => "square" %>
+                  <% else %>
+                    <% if board[location]==0 %>
+                      <%= nil %>
+                    <% else %> 
+                      <%= board[location] %>
+                    <%end %>
                   <% end %>
-                <% end %>
               </td>
           <% if place % 3 == 2 %>
             </tr>
@@ -31,7 +49,13 @@
     <%end%>
   <% end %>
 </table>
-<% if edit_form %>
+<% if solve_form %>
   <%= submit_tag("Update") %>
+<% elsif edit_form %>
+  <%= submit_tag("Edit") %>
+<% elsif create_form %>
+  <%= submit_tag("Create") %>
 <% end %>
+
 <% end %>
+</div>
