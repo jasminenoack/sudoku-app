@@ -12,10 +12,7 @@ include PuzzlesHelper
   end
 
   def create
-    @puzzle=Puzzle.new
-    @puzzle.board=@puzzle.blank_board
-    @squares=parse_params
-    @puzzle.board=@puzzle.update_board(@squares)
+    @puzzle=Puzzle.new(puzzle_params)
     @puzzle.save
     redirect_to puzzle_path(@puzzle.id)
   end
@@ -34,9 +31,7 @@ include PuzzlesHelper
 
   def update
     find_puzzle
-    @squares = parse_params
-    @puzzle.update_board(@squares)
-    @puzzle.save
+    @puzzle.update(puzzle_params)
     if params[:commit]=="Edit"
       redirect_to puzzle_path(@puzzle.id)
     else

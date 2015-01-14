@@ -17,25 +17,15 @@
               <td>
                 <% location = 9*square + place %>
                   <% if edit_form  %>
-                    <% if board[location]==0 %>
-                      <%= nil %>
-                    <% else %> 
-                      <%= text_field_tag "#{[square,place]}", "#{board[location]}", :class => "square" %>
-                    <% end %>
+                      <%= f.text_field "#{square}, #{place}", value: @puzzle.send("#{square}, #{place}"), :class => "square" %>
                   <% elsif solve_form %>
-                    <% unless board[location]==0 %>
-                      <%= board[location] %>
+                    <% if @puzzle.send("#{square}, #{place}")=="" %>
+                       <%= f.text_field "#{square}, #{place}", :class => "square" %>
                     <% else %> 
-                      <%= text_field_tag "#{[square,place]}", nil, :class => "square" %>
+                      <%= @puzzle.send("#{square}, #{place}") %>
                     <%end %>
-                  <% elsif create_form %>
-                    <%= text_field_tag "#{[square,place]}", nil, :class => "square" %>
                   <% else %>
-                    <% if board[location]==0 %>
-                      <%= nil %>
-                    <% else %> 
-                      <%= board[location] %>
-                    <%end %>
+                    <%= @puzzle.send("#{square}, #{place}") %>
                   <% end %>
               </td>
           <% if place % 3 == 2 %>
@@ -50,11 +40,11 @@
   <% end %>
 </table>
 <% if solve_form %>
-  <%= submit_tag("Update") %>
+  <%= f.submit("Update") %>
 <% elsif edit_form %>
-  <%= submit_tag("Edit") %>
+  <%= f.submit("Edit") %>
 <% elsif create_form %>
-  <%= submit_tag("Create") %>
+  <%= f.submit("Create") %>
 <% end %>
 
 <% end %>
