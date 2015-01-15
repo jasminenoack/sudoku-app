@@ -1,9 +1,8 @@
+
+
+<div id="content">
 <h1> <%= "Puzzle #{@puzzle.id}" %> </h1>
 
 <%= render :partial => 'displayboard', :locals => { :board => @puzzle.board} %>
-<p>
-<%= link_to "<< All Puzzles", puzzles_path %>
-<%= link_to "Edit Puzzle", edit_puzzle_path(@puzzle) %>
-<%= link_to "Solve Puzzle", "/puzzles/#{@puzzle.id}/solve" %>
-<%= link_to "Delete Puzzle", puzzle_path(@puzzle),  method: :delete, data: {confirm: "Really delete this puzzle?"} %>
-</p>
+</div>
+<%= render :partial => "puzzle_menu" %>

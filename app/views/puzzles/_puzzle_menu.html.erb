@@ -1,0 +1,16 @@
+<div id="menu">
+  <p><%= link_to "<< All Puzzles", puzzles_path %>
+  </p>
+  <p><%= link_to "View Puzzle", puzzle_path(@puzzle) %>
+  </p>
+  <p><%= link_to "Solve Puzzle", "/puzzles/#{@puzzle.id}/solve" %>
+  </p>
+  <p><%= link_to "See Original", "/puzzles/#{@puzzle.id}/display_original" %>
+  </p>
+  <p><%= link_to "See Solution", "/puzzles/#{@puzzle.id}/display_solution" %>
+  </p>
+  <p><%= link_to "Edit Puzzle", edit_puzzle_path(@puzzle) %>
+  </p>
+  <p><%= link_to "Delete Puzzle", puzzle_path(@puzzle),  method: :delete, data: {confirm: "Really delete this puzzle?"} %>
+</p>
+</div>

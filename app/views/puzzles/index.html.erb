@@ -1,12 +1,17 @@
+<div id="content">
 <h1> Puzzles </h1>
 <%= link_to "New Puzzle", new_puzzle_path %>
 <table id="index">
+
+
 <% @puzzles.each do |puzzle| %>
 <tr>
 <td><%= link_to "Puzzle #{puzzle.id}", puzzle_path(puzzle.id) %></td>
 <td><%= link_to "Solve Puzzle", "/puzzles/#{puzzle.id}/solve" %></td>
-<td><%= link_to "Edit Puzzle", edit_puzzle_path(puzzle.id) %></td>
-<td><%= link_to "Delete Puzzle", puzzle_path(puzzle.id),  method: :delete, data: {confirm: "Really delete this puzzle?"} %></td>
+<td><%= link_to "Original", "/puzzles/#{puzzle.id}/display_original" %></td>
+<td><%= link_to "Solution", "/puzzles/#{puzzle.id}/display_solution" %></td>
+
 </tr>
 <% end %> 
 </table>
+</div>

@@ -11,12 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113234806) do
-
-  create_table "boards", force: true do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20150115015616) do
 
   create_table "puzzles", force: true do |t|
     t.boolean  "complete"
@@ -105,6 +100,11 @@ ActiveRecord::Schema.define(version: 20150113234806) do
     t.string   "8, 6"
     t.string   "8, 7"
     t.string   "8, 8"
+    t.text     "original"
+    t.text     "solution"
+    t.text     "blocks"
+    t.text     "rows"
+    t.text     "columns"
   end
 
 end

@@ -1,5 +1,7 @@
+<div id="content">
 <h1>Create a New Puzzle </h1>
 <%= render :partial => 'displayboard', :locals => {:edit_form => true , :board => @puzzle.blank_board} %>
 <p>
 <%= link_to "<< All Puzzles", puzzles_path %>
 </p>
+</div>

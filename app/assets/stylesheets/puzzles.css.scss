@@ -50,3 +50,21 @@ table {
 
   }
 }
+
+#menu {
+  position: absolute;
+  height: auto;
+  width: 20%; 
+  top: 25%; 
+  right: 0;
+  text-align: left;  
+}
+
+#menu p {
+    background-color: #EDF5FC;
+    padding: 5px;
+    
+    a{
+    color: #272D2D; 
+    }
+  }

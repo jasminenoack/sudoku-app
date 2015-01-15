@@ -2,6 +2,7 @@
 <% edit_form ||= nil %>
 <% solve_form ||= nil %>
 <% create_form ||= nil %>
+<% from_hash ||= nil %>
 <%= form_for @puzzle do |f| %>
 <table id="main">
   <% (0..8).each do |square| %>
@@ -24,6 +25,9 @@
                     <% else %> 
                       <%= @puzzle.send("#{square}, #{place}") %>
                     <%end %>
+                  <% elsif from_hash %>
+                    <% values = @puzzle.send(from_hash) %>
+                    <%= values["#{square}, #{place}"]%>
                   <% else %>
                     <%= @puzzle.send("#{square}, #{place}") %>
                   <% end %>

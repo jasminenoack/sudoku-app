@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
   get 'puzzles/:id/solve' => 'puzzles#solve'
+  get 'puzzles/:id/display_original' => 'puzzles#display_original'
+  get 'puzzles/:id/display_solution' => 'puzzles#display_solution'
   resources :puzzles
   root 'puzzles#index'
   # The priority is based upon order of creation: first created -> highest priority.

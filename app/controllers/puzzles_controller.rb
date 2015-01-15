@@ -13,6 +13,7 @@ include PuzzlesHelper
 
   def create
     @puzzle=Puzzle.new(puzzle_params)
+    @puzzle.setup_puzzle
     @puzzle.save
     redirect_to puzzle_path(@puzzle.id)
   end
@@ -32,17 +33,21 @@ include PuzzlesHelper
   def update
     find_puzzle
     @puzzle.update(puzzle_params)
-    if params[:commit]=="Edit"
-      redirect_to puzzle_path(@puzzle.id)
-    else
-      redirect_to :back
-    end
+    redirect_to action: :solve
   end
 
   def destroy
     find_puzzle
     @puzzle.destroy
     redirect_to puzzles_path
+  end
+
+  def display_original
+    find_puzzle
+  end
+
+  def display_solution
+    find_puzzle
   end
 
 end
