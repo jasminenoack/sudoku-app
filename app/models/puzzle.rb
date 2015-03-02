@@ -79,8 +79,12 @@ class Puzzle < ActiveRecord::Base
     solved
   end
 
-
-
+  def revert
+    original.each do |place, value|
+      self.send("#{place}=",value)
+    end
+    self.save
+  end
 end
 
 

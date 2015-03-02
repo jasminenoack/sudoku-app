@@ -1,5 +1,6 @@
+<% provide(:title, "Original") %>
 <div id="content">
-<h1> <%= "Original: Puzzle #{@puzzle.id}" %> </h1>
+<h1> <%= header("Original") %> </h1>
 <%= render :partial => 'displayboard', :locals => { :from_hash => "original" } %>
 </div>
 <%= render :partial => "puzzle_menu" %>

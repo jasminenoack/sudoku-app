@@ -1,16 +1,18 @@
 <div id="menu">
-  <p><%= link_to "<< All Puzzles", puzzles_path %>
+  <p><%= link_to "<< All", puzzles_path, :title => "View all puzzles." %>
   </p>
-  <p><%= link_to "View Puzzle", puzzle_path(@puzzle) %>
+  <p><%= link_to "View", puzzle_path(@puzzle), :title => "View the puzzle." %>
   </p>
-  <p><%= link_to "Solve Puzzle", "/puzzles/#{@puzzle.id}/solve" %>
+  <p><%= link_to "Solve", "/puzzles/#{@puzzle.id}/solve", :title => "Complete unknown squares." %>
   </p>
-  <p><%= link_to "See Original", "/puzzles/#{@puzzle.id}/display_original" %>
+  <p><%= link_to "Original", "/puzzles/#{@puzzle.id}/display_original" , :title => "View the original puzzle."%>
   </p>
-  <p><%= link_to "See Solution", "/puzzles/#{@puzzle.id}/display_solution" %>
+  <p><%= link_to "Solution", "/puzzles/#{@puzzle.id}/display_solution", :title => "View the solution." %>
   </p>
-  <p><%= link_to "Edit Puzzle", edit_puzzle_path(@puzzle) %>
+  <p><%= link_to "Revert", "/puzzles/#{@puzzle.id}/revert_puzzle", :title => "Change puzzle back to original.", data: {confirm: "Really revert this puzzle?"} %>
   </p>
-  <p><%= link_to "Delete Puzzle", puzzle_path(@puzzle),  method: :delete, data: {confirm: "Really delete this puzzle?"} %>
+  <p><%= link_to "Edit", edit_puzzle_path(@puzzle) , :title => "Edit all values."%>
+  </p>
+  <p><%= link_to "Delete", puzzle_path(@puzzle),  method: :delete, data: {confirm: "Really delete this puzzle?"} , :title => "Delete the puzzle."%>
 </p>
 </div>

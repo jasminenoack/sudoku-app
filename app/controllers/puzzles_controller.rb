@@ -50,6 +50,12 @@ include PuzzlesHelper
     find_puzzle
   end
 
+  def revert_puzzle
+    find_puzzle
+    @puzzle.revert
+    redirect_to puzzle_path(@puzzle.id)
+  end
+
 end
 
 

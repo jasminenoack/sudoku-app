@@ -1,7 +1,7 @@
-
+<% provide(:title, "View") %>
 
 <div id="content">
-<h1> <%= "Puzzle #{@puzzle.id}" %> </h1>
+<h1> <%= header("View") %> </h1>
 
 <%= render :partial => 'displayboard', :locals => { :board => @puzzle.board} %>
 </div>
