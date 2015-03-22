@@ -52,6 +52,25 @@ RSpec.describe Puzzle, type: :model do
     expect(puzzle.check_place(3,3)).to eq([3,8])
   end
 
+  it "knows if a puzzle is solvable #solvable" do
+    expect(puzzle.solvable?).to be true
+  end
+
+  it "knows if a puzzle is not solvable" do
+    unsolvable_puzzle = Puzzle.new(board: [
+      0,0,9,0,5,0,8,0,9,
+      3,0,0,0,1,0,2,4,9,
+      0,1,4,9,0,0,0,0,0,
+      7,0,0,0,2,9,0,0,4,
+      0,4,0,5,0,6,0,8,0,
+      5,0,0,1,4,0,0,0,3,
+      0,0,0,0,0,1,4,5,0,
+      4,8,1,0,9,0,0,0,7,
+      0,0,5,0,3,0,1,0,0
+    ])
+    expect(unsolvable_puzzle.solvable?).to be false
+  end
+
   # 0,0,9,0,5,0,8,0,0,
   # 3,0,0,0,1,0,2,4,9,
   # 0,1,4,9,0,0,0,0,0,
@@ -63,24 +82,7 @@ RSpec.describe Puzzle, type: :model do
   # 0,0,5,0,3,0,1,0,0
 
 
-
-
-
-
-
-
-
-  it "knows if a puzzle is solvable"
-  it "knows if a puzzle is not solvable"
-  it "can guess what should go into a particular square"
   it "knows what places are open"
-
-
-
-
-
-
-  it "saves board, self and solution"
 
 
 end

@@ -66,11 +66,21 @@ class Puzzle < ActiveRecord::Base
     end
   end
 
+  #split into multiple methods
   def solvable?
     open_places = available_places
     open_places.each do |place|
       if check_place(*place).empty?
         return false
+      end
+    end
+    9.times do |i|
+      row = get_row(i)
+      column = get_column(i)
+      square = get_square((i/3)*3, (i % 3)*3)
+      [row, column, square].each do |group|
+        group.reject!{ |num| num == 0}
+        return false if group.length != group.uniq.length
       end
     end
     true
