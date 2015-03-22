@@ -2,7 +2,9 @@
   <% for (i = 0; i < 9; i++) { %>
     <ul class="row group" data-row=<%= i%>>
     <% for (j = 0; j < 9; j++) { %>
-      <li class="square" data-column=<%= j %> ><p><input type="text"></p></li>
+      <li class="square" data-column=<%= j %> >
+        <input value="" type="text" name="square">
+      </li>
     <% } %>
     </ul>
   <% } %>
