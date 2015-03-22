@@ -2,11 +2,11 @@ class Puzzle < ActiveRecord::Base
   serialize :board
   serialize :original
   serialize :solution
-  
+
   def blank_board
     board=Array.new(81, 0)
   end
-  
+
   def create_original
     original={}
       (0..8).each do |square|
@@ -59,16 +59,25 @@ class Puzzle < ActiveRecord::Base
   end
 
   def alter_board
-    array=board
+    array = board
     array = array.flatten.map{|x| x=="" ? "0" : x}
     array.each_slice(9).map{|nums| nums.join}.join("\n")
   end
 
+  def revert
+    original.each do |place, value|
+      self.send("#{place}=",value)
+    end
+    self.save
+  end
+
+  # solving the puzzle
+
   def solve_puzzle
-    solving_puzzle=Sudoku_Puzzle.new(alter_board)
+    solving_puzzle = create_test_puzzle(alter_board)
     solving_puzzle.guess_process
     solution = switch_board(solving_puzzle.puzzle.flatten)
-    index = 0 
+    index = 0
     solved={}
     (0..8).each do |square|
       (0..8).each do |place|
@@ -79,12 +88,8 @@ class Puzzle < ActiveRecord::Base
     solved
   end
 
-  def revert
-    original.each do |place, value|
-      self.send("#{place}=",value)
-    end
-    self.save
-  end
+
+
 end
 
 
