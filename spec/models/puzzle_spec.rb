@@ -56,7 +56,7 @@ RSpec.describe Puzzle, type: :model do
     expect(puzzle.solvable?).to be true
   end
 
-  it "knows if a puzzle is not solvable" do
+  it "knows if a puzzle is not solvable #solvable" do
     unsolvable_puzzle = Puzzle.new(board: [
       0,0,9,0,5,0,8,0,9,
       3,0,0,0,1,0,2,4,9,
@@ -71,18 +71,10 @@ RSpec.describe Puzzle, type: :model do
     expect(unsolvable_puzzle.solvable?).to be false
   end
 
-  # 0,0,9,0,5,0,8,0,0,
-  # 3,0,0,0,1,0,2,4,9,
-  # 0,1,4,9,0,0,0,0,0,
-  # 7,0,0,0,2,9,0,0,4,
-  # 0,4,0,5,0,6,0,8,0,
-  # 5,0,0,1,4,0,0,0,3,
-  # 0,0,0,0,0,1,4,5,0,
-  # 4,8,1,0,9,0,0,0,7,
-  # 0,0,5,0,3,0,1,0,0
-
-
-  it "knows what places are open"
-
-
+  it "knows what places are open #available_places" do
+    available = puzzle.available_places
+    expect(available.length).to eq(47)
+    expect(available).to include([3,1])
+    expect(available).to_not include([3,5])
+  end
 end
