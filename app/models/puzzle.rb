@@ -74,7 +74,9 @@ class Puzzle < ActiveRecord::Base
   # solving the puzzle
 
   def solve_puzzle
-    solving_puzzle = create_test_puzzle(alter_board)
+    # solving_puzzle=Sudoku_Puzzle.new(alter_board)
+    solving_puzzle = start_test(alter_board)
+
     solving_puzzle.guess_process
     solution = switch_board(solving_puzzle.puzzle.flatten)
     index = 0
@@ -88,6 +90,16 @@ class Puzzle < ActiveRecord::Base
     solved
   end
 
+  def start_test(nums)
+    puzzle = nums.split("\n")
+    @puzzle = []
+    @guess = false
+    @guesses = []
+    @major_guesses =[]
+    @incorrect=[]
+    puzzle.each{|row| @puzzle << row.split("").map{|num| num=="0" ? "_" : num.to_i}}
+    p @puzzle
+  end
 
 
 end
@@ -104,14 +116,7 @@ class Sudoku_Puzzle
       @major_guesses =[]
       @incorrect=[]
       puzzle.each{|row| @puzzle << row.split("").map{|num| num=="0" ? "_" : num.to_i}}
-    end
-
-    def display
-      @puzzle.each_with_index do |row, index|
-        puts "---------------------" if index==3 || index==6
-        puts "#{row[0]} #{row[1]} #{row[2]} | #{row[3]} #{row[4]} #{row[5]} | #{row[6]} #{row[7]} #{row[8]}"
-      end
-      puts
+      # ["009005071", "500706000", "008490035", "030018200", "090342060", "002960040", "920074300", "000609002", "760800400"]
     end
 
     def rotate
@@ -276,7 +281,9 @@ class Sudoku_Puzzle
     def guess_process
       loop do
         if solvable?
+          # p solvable? true
           take_a_guess(pick_empty)
+          # 2, 3, 4, 6
           complete_puzzle
           if check_incomplete==0
             break
