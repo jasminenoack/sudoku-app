@@ -1,18 +1,18 @@
-<% provide(:title, "Puzzles") %>
+<!-- <%# provide(:title, "Puzzles") %>
 <div id="content">
 <h1> Puzzles </h1>
-<%= link_to "New Puzzle", new_puzzle_path %>
+<%#= link_to "New Puzzle", new_puzzle_path %>
 <table id="index">
 
 
-<% @puzzles.each do |puzzle| %>
+<%# @puzzles.each do |puzzle| %>
 <tr>
-<td><%= link_to "Puzzle #{puzzle.id}", puzzle_path(puzzle.id) %></td>
-<td><%= link_to "Solve Puzzle", "/puzzles/#{puzzle.id}/solve" %></td>
-<td><%= link_to "Original", "/puzzles/#{puzzle.id}/display_original" %></td>
-<td><%= link_to "Solution", "/puzzles/#{puzzle.id}/display_solution" %></td>
+<td><%#= link_to "Puzzle #{puzzle.id}", puzzle_path(puzzle.id) %></td>
+<td><%#= link_to "Solve Puzzle", "/puzzles/#{puzzle.id}/solve" %></td>
+<td><%#= link_to "Original", "/puzzles/#{puzzle.id}/display_original" %></td>
+<td><%#= link_to "Solution", "/puzzles/#{puzzle.id}/display_solution" %></td>
 
 </tr>
-<% end %> 
+<%# end %>
 </table>
-</div>
+</div> -->

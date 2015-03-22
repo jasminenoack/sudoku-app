@@ -22,7 +22,7 @@
                   <% elsif solve_form %>
                     <% if @puzzle.send("#{square}, #{place}")=="" %>
                        <%= f.text_field "#{square}, #{place}", :class => "square" %>
-                    <% else %> 
+                    <% else %>
                       <%= @puzzle.send("#{square}, #{place}") %>
                     <%end %>
                   <% elsif from_hash %>

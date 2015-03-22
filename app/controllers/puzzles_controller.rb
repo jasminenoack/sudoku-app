@@ -4,36 +4,36 @@ include PuzzlesHelper
   #creates a hash [square, place in square] => value
 
   def index
-    @puzzles = Puzzle.all
+    # @puzzles = Puzzle.all
   end
 
   def new
-    @puzzle = Puzzle.new
+    # @puzzle = Puzzle.new
   end
 
   def create
-    @puzzle=Puzzle.new(puzzle_params)
-    @puzzle.setup_puzzle
-    @puzzle.save
-    redirect_to puzzle_path(@puzzle.id)
+    # @puzzle=Puzzle.new(puzzle_params)
+    # @puzzle.setup_puzzle
+    # @puzzle.save
+    # redirect_to puzzle_path(@puzzle.id)
   end
 
   def show
-    find_puzzle
+    # find_puzzle
   end
 
   def edit
-    find_puzzle
+    # find_puzzle
   end
 
   def solve
-    find_puzzle
+    # find_puzzle
   end
 
   def update
-    find_puzzle
-    @puzzle.update(puzzle_params)
-    redirect_to action: :solve
+    # find_puzzle
+    # @puzzle.update(puzzle_params)
+    # redirect_to action: :solve
   end
 
   def destroy

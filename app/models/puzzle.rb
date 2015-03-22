@@ -3,6 +3,10 @@ class Puzzle < ActiveRecord::Base
   serialize :original
   serialize :solution
 
+  def blank_board
+    board=Array.new(81, 0)
+  end
+
   def create_original
     original={}
       (0..8).each do |square|
