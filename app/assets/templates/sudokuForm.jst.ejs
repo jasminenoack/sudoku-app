@@ -1,8 +1,10 @@
-Form
-<% for (i = 0; i < 9; i++) { %>
-  <ul class="row" data-row=<%= i%>>
-  <% for (j = 0; j < 9; j++) { %>
-    <li class="square" data-column=<%= j %> ><%= i%><%= j %></li>
+<form class="puzzle">
+  <% for (i = 0; i < 9; i++) { %>
+    <ul class="row group" data-row=<%= i%>>
+    <% for (j = 0; j < 9; j++) { %>
+      <li class="square" data-column=<%= j %> ><p><input type="text"></p></li>
+    <% } %>
+    </ul>
   <% } %>
-  </ul>
-<% } %>
+  <button>Create</button>
+</form>
