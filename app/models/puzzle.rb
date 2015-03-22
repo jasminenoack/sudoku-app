@@ -7,7 +7,138 @@ class Puzzle < ActiveRecord::Base
     board = board.map(&:to_i)
     super(board)
     self.original = board
-    # self.solution = solve_puzzle
+    self.solution = solve_puzzle
+  end
+
+  def display
+    board.each_slice(9) do |row|
+      puts row.join
+    end
+    nil
+  end
+
+  def find_pos(index)
+    row = index / 9
+    column = index % 9
+    [row, column]
+  end
+
+  def find_index(pos)
+    pos[0] * 9 + pos[1]
+  end
+
+  def solve_puzzle
+    setup_solve_variables
+    guess_process
+    solution = switch_board(@puzzle.flatten)
+    index = 0
+    solved={}
+    # (0..8).each do |square|
+    #   (0..8).each do |place|
+    #     solved["#{square}, #{place}"]=solution[index].to_s
+    #     index += 1
+    #   end
+    # end
+    solved
+  end
+
+  def setup_solve_variables
+    @guessed = false
+    @after_guess = []
+    @guess =[]
+    @incorrect=[]
+  end
+
+  def guess_process
+    loop do
+      if solvable?
+        # take_a_guess(pick_empty)
+        # complete_puzzle
+        # if check_incomplete==0
+        #   break
+        # elsif solvable?
+        #   guess_process
+        #   break if check_incomplete==0
+        # else
+        #   backtrack
+        # end
+      end
+    end
+  end
+
+  def solvable?
+    open_places = available_places
+    open_places.each do |place|
+      if check_place(*place).empty?
+        return false
+      end
+    end
+    true
+  end
+
+  def available_places
+    open_places=[]
+    (0..8).each do |row|
+      (0..8).each do |column|
+        if board[find_index([row, column])] == 0
+          open_places << [row, column]
+        end
+      end
+    end
+    open_places
+  end
+
+  def check_place (row, column)
+    index = find_index([row, column])
+    return board[index] if board[index] != 0
+    check_row(row) & check_column(column) & check_square(row, column)
+  end
+
+  def get_row(row)
+    board[find_index([row, 0])..find_index([row, 8])]
+  end
+
+  def check_row(row)
+    row = get_row(row)
+    check(row)
+  end
+
+  def get_column(column)
+    column_nums = []
+    9.times do |i|
+      column_nums << board[find_index([i, column])]
+    end
+    column_nums
+  end
+
+  def check_column(column)
+   column = get_column(column)
+   check(column)
+  end
+
+  def get_square(row, column)
+    row = (row / 3) * 3
+    column = (column / 3) * 3
+    square_nums = []
+    (0..2).each do |row_delta|
+      (0..2).each do |column_delta|
+        new_row = row + row_delta
+        new_column = column + column_delta
+        square_nums << board[find_index([new_row, new_column])]
+      end
+    end
+    square_nums
+  end
+
+  def check_square(row, column)
+    square = get_square(row, column)
+    check(square)
+  end
+
+  def check(nums)
+    possible=[]
+    (1..9).each {|num| possible << num if !nums.include?(num) }
+    possible
   end
 
 
@@ -71,30 +202,9 @@ class Puzzle < ActiveRecord::Base
   #   self.save
   # end
   #
-  # def solve_puzzle
-  #   solving_puzzle = start_test(alter_board)
-  #   guess_process
-  #   solution = switch_board(@puzzle.flatten)
-  #   index = 0
-  #   solved={}
-  #   (0..8).each do |square|
-  #     (0..8).each do |place|
-  #       solved["#{square}, #{place}"]=solution[index].to_s
-  #       index += 1
-  #     end
-  #   end
-  #   solved
-  # end
+
   #
-  # def start_test(nums)
-  #   puzzle = nums.split("\n")
-  #   @puzzle = []
-  #   @guess = false
-  #   @guesses = []
-  #   @major_guesses =[]
-  #   @incorrect=[]
-  #   puzzle.each{|row| @puzzle << row.split("").map{|num| num=="0" ? "_" : num.to_i}}
-  # end
+
   #
   # def rotate
   #   @rotated = Array.new(81, "_").each_slice(9).to_a
@@ -106,46 +216,19 @@ class Puzzle < ActiveRecord::Base
   #   @rotated
   # end
   #
-  # def check(nums)
-  #   possible=[]
-  #   (1..9).each {|num| possible << num if !nums.include?(num) }
-  #   possible
-  # end
+
   #
-  # def check_row(row)
-  #   row=@puzzle[row]
-  #   check(row)
-  # end
+
   #
-  # def check_column(column)
-  #   @rotate=rotate
-  #   column=@rotated[column]
-  #   check(column)
-  # end
+  #
   #
   # def find_square(row, column)
-  #   start_h=(((row)/3)*3)
-  #   start_v=(((column)/3)*3)
-  #   square=[]
-  #   (start_h..start_h+2).each do |row|
-  #     (start_v..start_v+2).each do |column|
-  #       square << [row, column]
-  #     end
-  #   end
-  #   square
+  #
   # end
   #
-  # def check_square(row, column)
-  #   places=find_square(row, column)
-  #   square=[]
-  #   places.each {|place| square << @puzzle[place[0]][place[1]]}
-  #   check(square)
-  # end
+
   #
-  # def check_place (row, column)
-  #   return @puzzle[row][column] if @puzzle[row][column]!="_"
-  #   check_row(row) & check_column(column) & check_square(row, column)
-  # end
+
   #
   # def solve_squares
   #   (0..8).each do |row|
@@ -153,7 +236,7 @@ class Puzzle < ActiveRecord::Base
   #       options=check_place(row, column)
   #       if options.class==Array && options.length==1
   #         @puzzle[row][column]=options[0]
-  #         @guesses<<[row, column] if @guess
+  #         @after_guess<<[row, column] if @guessed
   #       end
   #     end
   #   end
@@ -189,7 +272,7 @@ class Puzzle < ActiveRecord::Base
   #           row = places[index][0]
   #           column = places[index][1]
   #           @puzzle[row][column]=num
-  #           @guesses<< [row, column] if @guess
+  #           @after_guess<< [row, column] if @guessed
   #         end
   #       end
   #     end
@@ -255,26 +338,7 @@ class Puzzle < ActiveRecord::Base
   #   end
   # end
   #
-  # def guess_process
-  #   loop do
-  #     if solvable?
-  #       # p solvable? true
-  #       take_a_guess(pick_empty)
-  #       # 2, 3, 4, 6
-  #       complete_puzzle
-  #       if check_incomplete==0
-  #         break
-  #       elsif solvable?
-  #         guess_process
-  #         break if check_incomplete==0
-  #       else
-  #         backtrack
-  #       end
-  #     end
-  #
-  #   end
-  #
-  # end
+
   #
   # def pick_empty
   #   available_places.each do |place|
@@ -291,45 +355,27 @@ class Puzzle < ActiveRecord::Base
   #
   #
   # def take_a_guess(nums)
-  #   @guess=true
+  #   @guessed=true
   #   test_case=nums
-  #   @major_guesses<<test_case
-  #   @guesses<<["mg", @major_guesses.length-1]
+  #   @guess<<test_case
+  #   @after_guess<<["mg", @guess.length-1]
   #   @puzzle[test_case[0]][test_case[1]]=test_case[2]
   # end
   #
-  # def available_places
-  #   open_places=[]
-  #   (0..8).each do |row|
-  #     (0..8).each do |column|
-  #       if @puzzle[row][column]=="_"
-  #         open_places<<[row, column]
-  #       end
-  #     end
-  #   end
-  #   open_places
-  # end
+
   #
-  # def solvable?
-  #   open_places=available_places
-  #   open_places.each do |place|
-  #     if check_place(*place).empty?
-  #       return false
-  #     end
-  #   end
-  #   true
-  # end
+  #
   #
   # def backtrack
   #   loop do
-  #     break if @guesses.empty?
-  #     guess = @guesses.pop
+  #     break if @after_guess.empty?
+  #     guess = @after_guess.pop
   #     if guess[0]=="mg" && guess[1]==0
-  #       guess = @major_guesses.pop
+  #       guess = @guess.pop
   #       @incorrect << guess
   #       @puzzle[guess[0]][guess[1]]="_"
   #     elsif guess[0]=="mg"
-  #       guess=@major_guesses.pop
+  #       guess=@guess.pop
   #       @puzzle[guess[0]][guess[1]]="_"
   #     else
   #       @puzzle[guess[0]][guess[1]]="_"
