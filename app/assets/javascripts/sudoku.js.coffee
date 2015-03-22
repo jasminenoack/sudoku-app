@@ -4,9 +4,8 @@ window.Sudoku =
   Views: {}
   Routers: {}
   initialize: ->
-    new Sudoku.Routers.PuzzleRouter
-    Backbone.history.start
-    # alert 'Hello from Backbone!'
+    new Sudoku.Routers.PuzzleRouter({$el: $(".content")}) 
+    Backbone.history.start()
 
 $(document).ready ->
   Sudoku.initialize()

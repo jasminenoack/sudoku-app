@@ -13,7 +13,8 @@
  *= require_tree .
  *= require_self
  */
-
+ 
+/*
 body {
   text-align: center;
   font-family: sans-serif;
@@ -43,4 +44,4 @@ a {
   text-decoration: none;
   color: #272D2D;
   margin:5px;
-}
+}*/

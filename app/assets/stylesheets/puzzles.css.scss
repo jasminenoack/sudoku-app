@@ -1,70 +1,70 @@
 // Place all the styles related to the puzzles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-#main {
-
-  border-collapse: collapse;
-  text-align: center;
-  border-radius: 0;
-  margin-bottom: 5px;
-}
-
-table {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
-  border-radius: 2em;
-  background-color: #A39BA8;
-
-}
-
-#main td {
-  border: 3px solid black;
-  text-align: center;
-}
-
-.square {
-  width: 20px;
-  height: 20px;
-  text-align: center;
-
-}
-
-#inner {
-  padding: 3px;
-}
-
-#inner td {
-  width: 30px;
-  height: 30px;
-  border: 1px solid black;
-}
-
-#index {
-
-  td {
-  padding: 5px;
-  background-color: #B8C5D6;
-  border-radius: 0.5em;
-
-  }
-}
-
-#menu {
-  position: absolute;
-  height: auto;
-  width: 20%; 
-  top: 25%; 
-  right: 0;
-  text-align: left;  
-}
-
-#menu p {
-    background-color: #EDF5FC;
-    padding: 5px;
-    
-    a{
-    color: #272D2D; 
-    }
-  }
+//
+// #main {
+//
+//   border-collapse: collapse;
+//   text-align: center;
+//   border-radius: 0;
+//   margin-bottom: 5px;
+// }
+//
+// table {
+//   margin-left: auto;
+//   margin-right: auto;
+//   padding: 10px;
+//   border-radius: 2em;
+//   background-color: #A39BA8;
+//
+// }
+//
+// #main td {
+//   border: 3px solid black;
+//   text-align: center;
+// }
+//
+// .square {
+//   width: 20px;
+//   height: 20px;
+//   text-align: center;
+//
+// }
+//
+// #inner {
+//   padding: 3px;
+// }
+//
+// #inner td {
+//   width: 30px;
+//   height: 30px;
+//   border: 1px solid black;
+// }
+//
+// #index {
+//
+//   td {
+//   padding: 5px;
+//   background-color: #B8C5D6;
+//   border-radius: 0.5em;
+//
+//   }
+// }
+//
+// #menu {
+//   position: absolute;
+//   height: auto;
+//   width: 20%;
+//   top: 25%;
+//   right: 0;
+//   text-align: left;
+// }
+//
+// #menu p {
+//     background-color: #EDF5FC;
+//     padding: 5px;
+//
+//     a{
+//     color: #272D2D;
+//     }
+//   }
