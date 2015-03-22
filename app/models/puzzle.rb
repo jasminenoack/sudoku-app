@@ -3,10 +3,6 @@ class Puzzle < ActiveRecord::Base
   serialize :original
   serialize :solution
 
-  def blank_board
-    board=Array.new(81, 0)
-  end
-
   def create_original
     original={}
       (0..8).each do |square|
@@ -71,8 +67,6 @@ class Puzzle < ActiveRecord::Base
     self.save
   end
 
-  # solving the puzzle
-
   def solve_puzzle
     solving_puzzle = start_test(alter_board)
     guess_process
@@ -127,7 +121,7 @@ class Puzzle < ActiveRecord::Base
 
   def find_square(row, column)
     start_h=(((row)/3)*3)
-  start_v=(((column)/3)*3)
+    start_v=(((column)/3)*3)
     square=[]
     (start_h..start_h+2).each do |row|
       (start_v..start_v+2).each do |column|
