@@ -24,24 +24,29 @@ RSpec.describe Puzzle, type: :model do
     expect(puzzle.get_row(2)).to eq([0,1,4,9,0,0,0,0,0])
   end
 
-  it "can find a column" do
+  it "can find a column #get_column" do
     expect(puzzle.get_column(2)).to eq([9,0,4,0,0,0,0,1,5])
   end
 
-  it "can find a square" do
+  it "can find a square #get_square" do
     expect(puzzle.get_square(1,7)).to eq([8,0,0,2,4,9,0,0,0])
   end
 
-  it "can determine what numbers between 1 and 9 are missing from an array" do
+  it "can determine what numbers between 1 and 9 are missing from an array #check" do
     expect(puzzle.check([1,4,8,5])).to eq([2,3,6,7,9])
   end
 
-  it "can determine what numbers are not in a column" do
-    
+  it "can determine what numbers are not in a column #check_column" do
+    expect(puzzle.check_column(2)).to eq([2,3,6,7,8])
   end
 
-  it "can determine what numbers are not in a square"
-  it "can determine what numbers are not in a row"
+  it "can determine what numbers are not in a square #check_square" do
+    expect(puzzle.check_square(2,2)).to eq([2,5,6,7,8])
+  end
+
+  it "can determine what numbers are not in a row" do
+    expect(puzzle.check_row(5)).to eq([2,6,7,8,9])
+  end
 
 
   # 0,0,9,0,5,0,8,0,0,
