@@ -7,7 +7,7 @@ class Puzzle < ActiveRecord::Base
     board = board.map(&:to_i)
     super(board)
     self.original = board
-    self.solution = solve_puzzle
+    # self.solution = solve_puzzle
   end
 
   def display
@@ -30,16 +30,16 @@ class Puzzle < ActiveRecord::Base
   def solve_puzzle
     setup_solve_variables
     guess_process
-    solution = switch_board(@puzzle.flatten)
-    index = 0
-    solved={}
+    # solution = switch_board(@puzzle.flatten)
+    # index = 0
+    # solved={}
     # (0..8).each do |square|
     #   (0..8).each do |place|
     #     solved["#{square}, #{place}"]=solution[index].to_s
     #     index += 1
     #   end
     # end
-    solved
+    # solved
   end
 
   def setup_solve_variables
