@@ -44,10 +44,13 @@ RSpec.describe Puzzle, type: :model do
     expect(puzzle.check_square(2,2)).to eq([2,5,6,7,8])
   end
 
-  it "can determine what numbers are not in a row" do
+  it "can determine what numbers are not in a row #check_row" do
     expect(puzzle.check_row(5)).to eq([2,6,7,8,9])
   end
 
+  it "can check what could be placed in a particular position #check_place" do
+    expect(puzzle.check_place(3,3)).to eq([3,8])
+  end
 
   # 0,0,9,0,5,0,8,0,0,
   # 3,0,0,0,1,0,2,4,9,
@@ -64,7 +67,7 @@ RSpec.describe Puzzle, type: :model do
 
 
 
-  it "can check what could be placed in a particular position"
+
 
 
   it "knows if a puzzle is solvable"
