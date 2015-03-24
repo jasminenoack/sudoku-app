@@ -12,19 +12,6 @@ RSpec.describe Puzzle, type: :model do
     0,0,5,0,3,0,1,0,0
   ])
 
-  medium_puzzle = Puzzle.new(board: [
-    0,0,0,0,0,1,0,0,0,
-    0,9,3,5,0,0,0,0,0,
-    2,8,0,0,0,0,0,4,0,
-    0,0,0,0,4,6,0,0,2,
-    0,0,2,9,0,7,8,0,0,
-    7,0,0,2,3,0,0,0,0,
-    0,4,0,0,0,0,0,5,6,
-    0,0,0,0,0,2,9,3,0,
-    0,0,0,1,0,0,0,0,0
-    ])
-
-
   it "can find a position from an index: #find_pos" do
     expect(puzzle.find_pos(25)).to eq([2,7])
   end
@@ -95,7 +82,7 @@ RSpec.describe Puzzle, type: :model do
     expect(puzzle.check_incomplete).to eq(47)
   end
 
-  it "knows how to solve squares" do
+  it "knows how to solve squares #solve_squares" do
     puzzle.solve_squares
     expect(puzzle.board).to eq([
       0,0,9,0,5,0,8,0,0,
@@ -110,9 +97,26 @@ RSpec.describe Puzzle, type: :model do
     ])
   end
 
+  # medium_puzzle = Puzzle.new(board: [
+  #   0,0,0,0,0,1,0,0,0,
+  #   0,9,3,5,0,0,0,0,0,
+  #   2,8,0,0,0,0,0,4,0,
+  #   0,0,0,0,4,6,0,0,2,
+  #   0,0,2,9,0,7,8,0,0,
+  #   7,0,0,2,3,0,0,0,0,
+  #   0,4,0,0,0,0,0,5,6,
+  #   0,0,0,0,0,2,9,3,0,
+  #   0,0,0,1,0,0,0,0,0
+  # ])
+
   it "knows how to compare within a square"
+
+  it "can compare within all squares"
+
   it "knows how to compare within a row"
+  it "can compare all rows"
   it "knows how to compare within a column"
+  it "can compare all columns"
 
   describe "completes a puzzle" do
     it "solves a simple puzzle" do

@@ -186,21 +186,60 @@ class Puzzle < ActiveRecord::Base
         options = check_place(row, column)
         if options.class == Array && options.length == 1
           board[find_index([row, column])] = options.first
-          @after_guess << [row, column] if @guessed
+          # @after_guess << [row, column] if @guessed
         end
       end
     end
     self
   end
 
+  def find_set_options(places)
+    options=[]
+    places.each do |place|
+      options << check_place(place[0],place[1])
+    end
+    options
+  end
+
   def compare_square(row, column)
-    places = find_square(row, column)
-    options = find_options(places)
+    places = get_square(row, column)
+    options = find_set_options(places)
     singles = compare(options)
     update_from_compare(singles, options, places)
   end
 
-  
+  def compare (options)
+    nums=options.flatten.sort
+    (1..9).each {|num| nums.delete(num) if nums.count(num)>1}
+    nums
+  end
+
+  def update_from_compare(singles, options, places)
+    singles.each do |num|
+      if options.include?(num)
+        next
+      else
+        options.each_with_index do |nums, index|
+          next if nums.class == Fixnum
+          if nums.include?(num)
+            place_index = places[index]
+            board[place_index] = num
+            # @after_guess << [row, column] if @guessed
+          end
+        end
+      end
+    end
+  end
+
+  def compare_squares
+    (0..2).each do |row|
+      (0..2).each do |column|
+        compare_square(row*3, column*3)
+      end
+    end
+  end
+
+
 
   # def take_a_guess(nums)
   #   @guessed=true
@@ -295,37 +334,11 @@ class Puzzle < ActiveRecord::Base
   #
 
   #
-  # def find_options(places)
-  #   options=[]
-  #   places.each do |place|
-  #     options << check_place(place[0],place[1])
-  #   end
-  #   options
-  # end
+
   #
-  # def compare (options)
-  #   nums=options.flatten.sort
-  #   (1..9).each {|num| nums.delete(num) if nums.count(num)>1}
-  #   nums
-  # end
+
   #
-  # def update_from_compare(singles, options, places)
-  #   singles.each do |num|
-  #     if options.include?(num)
-  #       next
-  #     else
-  #       options.each_with_index do |nums, index|
-  #         next if nums.class==Fixnum
-  #         if nums.include?(num)
-  #           row = places[index][0]
-  #           column = places[index][1]
-  #           @puzzle[row][column]=num
-  #           @after_guess<< [row, column] if @guessed
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+
   #
   # def compare_row(row)
   #   rows=Array.new(9, row)
@@ -355,13 +368,7 @@ class Puzzle < ActiveRecord::Base
   #
 
   #
-  # def compare_squares
-  #   (0..2).each do |row|
-  #     (0..2).each do |column|
-  #       compare_square(row*3, column*3)
-  #     end
-  #   end
-  # end
+
   #
 
   #
