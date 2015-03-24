@@ -145,8 +145,38 @@ RSpec.describe Puzzle, type: :model do
     expect(medium_puzzle.board).to eq(result)
   end
 
-  it "knows how to compare within a row"
-  it "can compare all rows"
+  it "knows how to compare within a row" do
+   result = [
+     0, 0, 0, 9, 0, 7, 0, 0, 0,
+     9, 0, 0, 0, 0, 0, 0, 0, 8,
+     0, 3, 0, 4, 0, 5, 0, 2, 0,
+     3, 0, 7, 0, 4, 0, 2, 0, 6,
+     0, 0, 0, 5, 3, 9, 0, 0, 0,
+     8, 0, 9, 0, 2, 0, 1, 0, 3,
+     0, 7, 0, 6, 0, 4, 0, 3, 0,
+     2, 0, 0, 0, 0, 0, 0, 0, 9,
+     0, 0, 0, 1, 0, 2, 0, 0, 0
+    ]
+    medium_puzzle.compare_row(4)
+    expect(medium_puzzle.board).to eq(result)
+  end
+
+  it "can compare all rows" do
+    medium_puzzle.compare_row
+    result = [
+      0, 0, 0, 9, 0, 7, 0, 0, 0,
+      9, 0, 0, 0, 0, 0, 0, 0, 8,
+      0, 3, 0, 4, 0, 5, 9, 2, 0,
+      3, 0, 7, 0, 4, 0, 2, 9, 6,
+      0, 0, 0, 5, 3, 9, 0, 0, 0,
+      8, 0, 9, 0, 2, 0, 1, 0, 3,
+      0, 7, 0, 6, 9, 4, 0, 3, 2,
+      2, 0, 0, 0, 0, 0, 0, 0, 9,
+      0, 9, 3, 1, 0, 2, 0, 0, 0
+    ]
+    expect(medium_puzzle.board).to eq(result)
+  end
+
   it "knows how to compare within a column"
   it "can compare all columns"
 

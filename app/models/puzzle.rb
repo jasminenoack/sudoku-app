@@ -73,7 +73,7 @@ class Puzzle < ActiveRecord::Base
   def solvable?
     open_places = available_places
     open_places.each do |place|
-      if (*place).empty?
+      if check_place(*place).empty?
         return false
       end
     end
@@ -101,7 +101,7 @@ class Puzzle < ActiveRecord::Base
     open_places
   end
 
-  def  (row, column)
+  def check_place (row, column)
     index = find_index([row, column])
     return board[index] if board[index] != 0
     check_row(row) & check_column(column) & check_square(row, column)
@@ -183,7 +183,7 @@ class Puzzle < ActiveRecord::Base
   def solve_squares
     (0..8).each do |row|
       (0..8).each do |column|
-        options = (row, column)
+        options = check_place(row, column)
         if options.class == Array && options.length == 1
           board[find_index([row, column])] = options.first
           # @after_guess << [row, column] if @guessed
@@ -196,7 +196,7 @@ class Puzzle < ActiveRecord::Base
   def find_set_options(places)
     options=[]
     places.each do |place|
-      options << (*find_pos(place))
+      options << check_place(*find_pos(place))
     end
     options
   end
@@ -251,19 +251,6 @@ class Puzzle < ActiveRecord::Base
         compare_square(row*3, column*3)
       end
     end
-  end
-
-  def compare_row(row)
-    rows = Array.new(9, row)
-    columns = (0..8).to_a
-    places = rows.zip(columns)
-    options = find_options(places)
-    singles = compare(options)
-    update_from_compare(singles, options, places)
-  end
-
-  def compare_rows
-    (0..8).each {|num| compare_row(num)}
   end
 
 
@@ -367,7 +354,18 @@ class Puzzle < ActiveRecord::Base
   #
 
   #
-
+  # def compare_row(row)
+  #   rows=Array.new(9, row)
+  #   columns=(0..8).to_a
+  #   places=rows.zip(columns)
+  #   options=find_options(places)
+  #   singles=compare(options)
+  #   update_from_compare(singles, options, places)
+  # end
+  #
+  # def compare_rows
+  #   (0..8).each {|num| compare_row(num)}
+  # end
   #
   # def compare_column(column)
   #   columns=Array.new(9, column)
@@ -392,7 +390,7 @@ class Puzzle < ActiveRecord::Base
   #
   # def pick_empty
   #   available_places.each do |place|
-  #     options=(*place)
+  #     options=check_place(*place)
   #     options.each do |set|
   #       options.each do |num|
   #         next if @incorrect.include?([*place,num])
