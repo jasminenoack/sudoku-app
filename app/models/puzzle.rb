@@ -8,6 +8,7 @@ class Puzzle < ActiveRecord::Base
     super(board)
     self.original = board
     # self.solution = solve_puzzle
+    super(board)
   end
 
   def display
@@ -52,8 +53,10 @@ class Puzzle < ActiveRecord::Base
   def guess_process
     loop do
       if solvable?
+        complete_puzzle
+
         # take_a_guess(pick_empty)
-        # complete_puzzle
+
         # if check_incomplete==0
         #   break
         # elsif solvable?
@@ -151,14 +154,62 @@ class Puzzle < ActiveRecord::Base
     possible
   end
 
+  def blank_board
+    board=Array.new(81, 0)
+  end
 
+  def complete_puzzle
+    incomplete=check_incomplete
+    while incomplete>0
+      start=incomplete
+      solve_squares
+      incomplete=check_incomplete
+      if incomplete == start
+        compare_squares
+        compare_rows
+        compare_columns
+        incomplete=check_incomplete
+        if incomplete == start
+          break
+        end
+      end
+    end
+  end
 
+  def check_incomplete
+    board.count(0)
+  end
 
-  #
-  #
-  # def blank_board
-  #   board=Array.new(81, 0)
+  def solve_squares
+    (0..8).each do |row|
+      (0..8).each do |column|
+        options = check_place(row, column)
+        if options.class == Array && options.length == 1
+          board[find_index([row, column])] = options.first
+          @after_guess << [row, column] if @guessed
+        end
+      end
+    end
+    self
+  end
+
+  def compare_square(row, column)
+    places = find_square(row, column)
+    options = find_options(places)
+    singles = compare(options)
+    update_from_compare(singles, options, places)
+  end
+
+  
+
+  # def take_a_guess(nums)
+  #   @guessed=true
+  #   test_case=nums
+  #   @guess<<test_case
+  #   @after_guess<<["mg", @guess.length-1]
+  #   @puzzle[test_case[0]][test_case[1]]=test_case[2]
   # end
+
   #
   #
   #
@@ -240,22 +291,9 @@ class Puzzle < ActiveRecord::Base
   #
 
   #
-  # def solve_squares
-  #   (0..8).each do |row|
-  #     (0..8).each do |column|
-  #       options=check_place(row, column)
-  #       if options.class==Array && options.length==1
-  #         @puzzle[row][column]=options[0]
-  #         @after_guess<<[row, column] if @guessed
-  #       end
-  #     end
-  #   end
-  #   self
-  # end
+
   #
-  # def check_incomplete
-  #   incomplete=@puzzle.map {|row| row.count("_")}.inject(:+)
-  # end
+
   #
   # def find_options(places)
   #   options=[]
@@ -315,12 +353,7 @@ class Puzzle < ActiveRecord::Base
   #   (0..8).each {|num| compare_column(num)}
   # end
   #
-  # def compare_square(row, column)
-  #   places = find_square(row, column)
-  #   options = find_options(places)
-  #   singles = compare(options)
-  #   update_from_compare(singles, options, places)
-  # end
+
   #
   # def compare_squares
   #   (0..2).each do |row|
@@ -330,23 +363,7 @@ class Puzzle < ActiveRecord::Base
   #   end
   # end
   #
-  # def complete_puzzle
-  #   incomplete=check_incomplete
-  #   while incomplete>0
-  #     start=incomplete
-  #     solve_squares
-  #     incomplete=check_incomplete
-  #     if incomplete == start
-  #       compare_squares
-  #       compare_rows
-  #       compare_columns
-  #       incomplete=check_incomplete
-  #       if incomplete == start
-  #         break
-  #       end
-  #     end
-  #   end
-  # end
+
   #
 
   #
@@ -364,13 +381,7 @@ class Puzzle < ActiveRecord::Base
   # end
   #
   #
-  # def take_a_guess(nums)
-  #   @guessed=true
-  #   test_case=nums
-  #   @guess<<test_case
-  #   @after_guess<<["mg", @guess.length-1]
-  #   @puzzle[test_case[0]][test_case[1]]=test_case[2]
-  # end
+
   #
 
   #

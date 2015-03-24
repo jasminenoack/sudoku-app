@@ -12,6 +12,19 @@ RSpec.describe Puzzle, type: :model do
     0,0,5,0,3,0,1,0,0
   ])
 
+  medium_puzzle = Puzzle.new(board: [
+    0,0,0,0,0,1,0,0,0,
+    0,9,3,5,0,0,0,0,0,
+    2,8,0,0,0,0,0,4,0,
+    0,0,0,0,4,6,0,0,2,
+    0,0,2,9,0,7,8,0,0,
+    7,0,0,2,3,0,0,0,0,
+    0,4,0,0,0,0,0,5,6,
+    0,0,0,0,0,2,9,3,0,
+    0,0,0,1,0,0,0,0,0
+    ])
+
+
   it "can find a position from an index: #find_pos" do
     expect(puzzle.find_pos(25)).to eq([2,7])
   end
@@ -77,4 +90,50 @@ RSpec.describe Puzzle, type: :model do
     expect(available).to include([3,1])
     expect(available).to_not include([3,5])
   end
+
+  it "knows counts incomplete cells #check_incomplete" do
+    expect(puzzle.check_incomplete).to eq(47)
+  end
+
+  it "knows how to solve squares" do
+    puzzle.solve_squares
+    expect(puzzle.board).to eq([
+      0,0,9,0,5,0,8,0,0,
+      3,0,0,0,1,0,2,4,9,
+      0,1,4,9,0,0,0,0,0,
+      7,0,0,0,2,9,0,0,4,
+      0,4,0,5,7,6,9,8,0,
+      5,0,0,1,4,8,0,0,3,
+      0,0,0,0,0,1,4,5,0,
+      4,8,1,0,9,0,0,0,7,
+      0,0,5,0,3,0,1,0,0
+    ])
+  end
+
+  it "knows how to compare within a square"
+  it "knows how to compare within a row"
+  it "knows how to compare within a column"
+
+  describe "completes a puzzle" do
+    it "solves a simple puzzle" do
+      puzzle.complete_puzzle
+      expect(puzzle.board).to eq([
+        2,7,9,4,5,3,8,6,1,
+        3,5,6,8,1,7,2,4,9,
+        8,1,4,9,6,2,7,3,5,
+        7,6,8,3,2,9,5,1,4,
+        1,4,3,5,7,6,9,8,2,
+        5,9,2,1,4,8,6,7,3,
+        9,3,7,2,8,1,4,5,6,
+        4,8,1,6,9,5,3,2,7,
+        6,2,5,7,3,4,1,9,8
+      ])
+    end
+    it "solves a puzzle with complex logic"
+    it "solves a puzzle that requires guessing"
+
+  end
 end
+
+# solve puzzle
+# guess process
