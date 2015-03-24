@@ -7,7 +7,7 @@ class Puzzle < ActiveRecord::Base
     board = board.map(&:to_i)
     super(board)
     self.original = board
-    # self.solution = solve_puzzle
+    self.solution = solve_puzzle
     super(board)
   end
 
@@ -31,16 +31,6 @@ class Puzzle < ActiveRecord::Base
   def solve_puzzle
     setup_solve_variables
     guess_process
-    # solution = switch_board(@puzzle.flatten)
-    # index = 0
-    # solved={}
-    # (0..8).each do |square|
-    #   (0..8).each do |place|
-    #     solved["#{square}, #{place}"]=solution[index].to_s
-    #     index += 1
-    #   end
-    # end
-    # solved
   end
 
   def setup_solve_variables
@@ -54,22 +44,22 @@ class Puzzle < ActiveRecord::Base
     loop do
       if solvable?
         complete_puzzle
-
-        # take_a_guess(pick_empty)
-
-        # if check_incomplete==0
-        #   break
-        # elsif solvable?
-        #   guess_process
-        #   break if check_incomplete==0
-        # else
-        #   backtrack
-        # end
+        if check_incomplete == 0
+          break
+        elsif solvable?
+          take_a_guess(pick_empty)
+          guess_process
+          break if check_incomplete == 0
+        else
+          backtrack
+        end
+      else
+        break
       end
     end
+    return board
   end
 
-  #split into multiple methods
   def solvable?
     open_places = available_places
     open_places.each do |place|
@@ -160,7 +150,7 @@ class Puzzle < ActiveRecord::Base
 
   def complete_puzzle
     incomplete = check_incomplete
-    while incomplete>0
+    while incomplete > 0
       start = incomplete
       solve_squares
       incomplete = check_incomplete
@@ -186,7 +176,7 @@ class Puzzle < ActiveRecord::Base
         options = check_place(row, column)
         if options.class == Array && options.length == 1
           board[find_index([row, column])] = options.first
-          # @after_guess << [row, column] if @guessed
+          @after_guess << [row, column] if @guessed
         end
       end
     end
@@ -238,7 +228,7 @@ class Puzzle < ActiveRecord::Base
           if nums.include?(num)
             place_index = places[index]
             board[place_index] = num
-            # @after_guess << [row, column] if @guessed
+            @after_guess << find_pos(place_index) if @guessed
           end
         end
       end
@@ -277,154 +267,46 @@ class Puzzle < ActiveRecord::Base
     (0..8).each {|num| compare_column(num)}
   end
 
+  def pick_empty
+    available_places.each do |place|
+      options = check_place(*place)
+      options.each do |set|
+        options.each do |num|
+          next if @incorrect.include?([*place,num])
+          return [*place, num]
+        end
+      end
+    end
+    nil
+  end
 
+  def take_a_guess(nums)
+    @guessed = true
+    test_case = nums
+    @guess << test_case
+    @after_guess << ["mg", @guess.length - 1]
+    board[find_index(test_case)] = test_case[2]
+  end
 
-  # def take_a_guess(nums)
-  #   @guessed=true
-  #   test_case=nums
-  #   @guess<<test_case
-  #   @after_guess<<["mg", @guess.length-1]
-  #   @puzzle[test_case[0]][test_case[1]]=test_case[2]
-  # end
+  def backtrack
+    loop do
+      break if @after_guess.empty?
+      guess = @after_guess.pop
+      if guess[0]=="mg" && guess[1] == 0
+        guess = @guess.pop
+        @incorrect << guess
+        board[find_index(guess)] = 0
+      elsif guess[0]=="mg"
+        guess=@guess.pop
+        board[find_index(guess)] = 0
+      else
+        board[find_index(guess)] = 0
+      end
+    end
+  end
 
-  #
-  #
-  #
-  # def switch_board(array = board)
-  #   result=[]
-  #   rows=Array.new
-  #   #selects all rows within a row of squares on the grid
-  #   array.each_slice(27) do |row_set|
-  #     rows=[[],[],[]]
-  #     #selects a square
-  #     row_set.each_slice(9) do |square|
-  #       square.each_with_index do |element, index|
-  #         case index
-  #         when (0..2) then rows[0] << element
-  #         when (3..5) then rows[1] << element
-  #         when (6..8) then rows[2] << element
-  #         end
-  #       end
-  #     end
-  #     result << rows.flatten
-  #   end
-  #   result.flatten
-  # end
-  #
-  # def create_board
-  #   board=[]
-  #   (0..8).each do |square|
-  #     (0..8).each do |place|
-  #       board<<send("#{square}, #{place}")
-  #     end
-  #   end
-  #   switch_board(board)
-  # end
-  #
-  # def setup_board
-  #   self.board=create_board.each_slice(9).to_a
-  # end
-  #
-  #
-  #
-  # def alter_board
-  #   array = board
-  #   array = array.flatten.map{|x| x=="" ? "0" : x}
-  #   array.each_slice(9).map{|nums| nums.join}.join("\n")
-  # end
-  #
-  # def revert
-  #   original.each do |place, value|
-  #     self.send("#{place}=",value)
-  #   end
-  #   self.save
-  # end
-  #
-
-  #
-
-  #
-  # def rotate
-  #   @rotated = Array.new(81, "_").each_slice(9).to_a
-  #   (0..8).each do |column|
-  #     (0..8).each do |row|
-  #       @rotated[row][column]=@puzzle[column][row]
-  #     end
-  #   end
-  #   @rotated
-  # end
-  #
-
-  #
-
-  #
-  #
-  #
-  # def find_square(row, column)
-  #
-  # end
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-
-  #
-  # def pick_empty
-  #   available_places.each do |place|
-  #     options=check_place(*place)
-  #     options.each do |set|
-  #       options.each do |num|
-  #         next if @incorrect.include?([*place,num])
-  #         return [*place, num]
-  #       end
-  #     end
-  #   end
-  #   nil
-  # end
-  #
-  #
-
-  #
-
-  #
-  #
-  #
-  # def backtrack
-  #   loop do
-  #     break if @after_guess.empty?
-  #     guess = @after_guess.pop
-  #     if guess[0]=="mg" && guess[1]==0
-  #       guess = @guess.pop
-  #       @incorrect << guess
-  #       @puzzle[guess[0]][guess[1]]="_"
-  #     elsif guess[0]=="mg"
-  #       guess=@guess.pop
-  #       @puzzle[guess[0]][guess[1]]="_"
-  #     else
-  #       @puzzle[guess[0]][guess[1]]="_"
-  #     end
-  #   end
-  # end
+  def revert
+    board = original
+  end
 
 end
