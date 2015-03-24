@@ -253,6 +253,17 @@ class Puzzle < ActiveRecord::Base
     end
   end
 
+  def compare_row(row)
+    places = (row * 9..(row * 9 + 8)).to_a
+    options = find_set_options(places)
+    singles = compare(options)
+    update_from_compare(singles, options, places)
+  end
+
+  def compare_rows
+    (0..8).each {|num| compare_row(num)}
+  end
+
 
 
   # def take_a_guess(nums)
@@ -354,18 +365,7 @@ class Puzzle < ActiveRecord::Base
   #
 
   #
-  # def compare_row(row)
-  #   rows=Array.new(9, row)
-  #   columns=(0..8).to_a
-  #   places=rows.zip(columns)
-  #   options=find_options(places)
-  #   singles=compare(options)
-  #   update_from_compare(singles, options, places)
-  # end
-  #
-  # def compare_rows
-  #   (0..8).each {|num| compare_row(num)}
-  # end
+
   #
   # def compare_column(column)
   #   columns=Array.new(9, column)

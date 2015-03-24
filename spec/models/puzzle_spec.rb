@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe Puzzle, type: :model do
-  puzzle = Puzzle.new(board: [
+  let(:puzzle) { Puzzle.new(board: [
     0,0,9,0,5,0,8,0,0,
     3,0,0,0,1,0,2,4,9,
     0,1,4,9,0,0,0,0,0,
@@ -10,7 +10,7 @@ RSpec.describe Puzzle, type: :model do
     0,0,0,0,0,1,4,5,0,
     4,8,1,0,9,0,0,0,7,
     0,0,5,0,3,0,1,0,0
-  ])
+  ])}
 
   it "can find a position from an index: #find_pos" do
     expect(puzzle.find_pos(25)).to eq([2,7])
@@ -97,17 +97,17 @@ RSpec.describe Puzzle, type: :model do
     ])
   end
 
-  medium_puzzle = Puzzle.new(board: [
-    0,0,0,9,0,7,0,0,0,
-    9,0,0,0,0,0,0,0,8,
-    0,3,0,4,0,5,0,2,0,
-    3,0,7,0,4,0,2,0,6,
-    0,0,0,5,0,9,0,0,0,
-    8,0,9,0,2,0,1,0,3,
-    0,7,0,6,0,4,0,3,0,
-    2,0,0,0,0,0,0,0,9,
-    0,0,0,1,0,2,0,0,0
-  ])
+    let(:medium_puzzle) { Puzzle.new(board: [
+      0,0,0,9,0,7,0,0,0,
+      9,0,0,0,0,0,0,0,8,
+      0,3,0,4,0,5,0,2,0,
+      3,0,7,0,4,0,2,0,6,
+      0,0,0,5,0,9,0,0,0,
+      8,0,9,0,2,0,1,0,3,
+      0,7,0,6,0,4,0,3,0,
+      2,0,0,0,0,0,0,0,9,
+      0,0,0,1,0,2,0,0,0
+    ])}
 
   it "can find indexes within a square #find_square_indexes" do
     expect(puzzle.find_square_indexes(5,8)).to eq([33, 34, 35, 42, 43, 44, 51, 52, 53])
@@ -162,7 +162,7 @@ RSpec.describe Puzzle, type: :model do
   end
 
   it "can compare all rows" do
-    medium_puzzle.compare_row
+    medium_puzzle.compare_rows
     result = [
       0, 0, 0, 9, 0, 7, 0, 0, 0,
       9, 0, 0, 0, 0, 0, 0, 0, 8,
@@ -177,8 +177,37 @@ RSpec.describe Puzzle, type: :model do
     expect(medium_puzzle.board).to eq(result)
   end
 
-  it "knows how to compare within a column"
-  it "can compare all columns"
+  it "knows how to compare within a column" do
+    medium_puzzle.compare_column(3)
+    result = [
+      0, 0, 0, 9, 0, 7, 0, 0, 0,
+      9, 0, 0, 2, 0, 0, 0, 0, 8,
+      0, 3, 0, 4, 0, 5, 0, 2, 0,
+      3, 0, 7, 0, 4, 0, 2, 0, 6,
+      0, 0, 0, 5, 0, 9, 0, 0, 0,
+      8, 0, 9, 0, 2, 0, 1, 0, 3,
+      0, 7, 0, 6, 0, 4, 0, 3, 0,
+      2, 0, 0, 0, 0, 0, 0, 0, 9,
+      0, 0, 0, 1, 0, 2, 0, 0, 0
+    ]
+    expect(medium_puzzle.board).to eq(result)
+  end
+
+  it "can compare all columns" do
+    medium_puzzle.columns
+    result = [
+      0, 0, 0, 9, 0, 7, 0, 0, 0,
+      9, 0, 0, 2, 0, 0, 0, 0, 8,
+      7, 3, 0, 4, 0, 5, 9, 2, 0,
+      3, 0, 7, 0, 4, 0, 2, 9, 6,
+      0, 0, 0, 5, 0, 9, 0, 0, 0,
+      8, 0, 9, 0, 2, 0, 1, 0, 3,
+      0, 7, 0, 6, 9, 4, 0, 3, 2,
+      2, 0, 0, 0, 0, 0, 0, 0, 9,
+      0, 9, 0, 1, 0, 2, 0, 0, 0
+    ]
+    expect(medium_puzzle.board).to eq(result)
+  end
 
   describe "completes a puzzle" do
     it "solves a simple puzzle" do
