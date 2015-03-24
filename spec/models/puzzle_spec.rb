@@ -109,9 +109,37 @@ RSpec.describe Puzzle, type: :model do
     0,0,0,1,0,2,0,0,0
   ])
 
-  it "knows how to compare within a square"
+  it "knows how to compare within a square" do
+    medium_puzzle.compare_square(1,1)
+    result = [
+      0, 0, 0, 9, 0, 7, 0, 0, 0,
+      9, 0, 0, 0, 0, 0, 0, 0, 8,
+      7, 3, 0, 4, 0, 5, 0, 2, 0,
+      3, 0, 7, 0, 4, 0, 2, 0, 6,
+      0, 0, 0, 5, 0, 9, 0, 0, 0,
+      8, 0, 9, 0, 2, 0, 1, 0, 3,
+      0, 7, 0, 6, 0, 4, 0, 3, 0,
+      2, 0, 0, 0, 0, 0, 0, 0, 9,
+      0, 0, 0, 1, 0, 2, 0, 0, 0]
+    expect(medium_puzzle.board).to eq(result)
+  end
 
-  it "can compare within all squares"
+
+  it "can compare within all squares" do
+    medium_puzzle.compare_squares
+    result = [
+      0, 0, 0, 9, 0, 7, 0, 0, 0,
+      9, 0, 0, 2, 0, 0, 0, 0, 8,
+      7, 3, 0, 4, 0, 5, 9, 2, 0,
+      3, 0, 7, 0, 4, 0, 2, 9, 6,
+      0, 0, 0, 5, 3, 9, 0, 0, 0,
+      8, 0, 9, 0, 2, 0, 1, 0, 3,
+      0, 7, 0, 6, 9, 4, 0, 3, 2,
+      2, 0, 0, 0, 0, 0, 0, 0, 9,
+      0, 9, 0, 1, 0, 2, 0, 0, 0
+    ]
+    expect(medium_puzzle.board).to eq(result)
+  end
 
   it "knows how to compare within a row"
   it "can compare all rows"
@@ -133,7 +161,24 @@ RSpec.describe Puzzle, type: :model do
         6,2,5,7,3,4,1,9,8
       ])
     end
-    it "solves a puzzle with complex logic"
+
+    it "solves a puzzle with complex logic" do
+      medium_puzzle.complete_puzzle
+      result =   [
+        4, 8, 2, 9, 1, 7, 3, 6, 5,
+        9, 1, 5, 2, 6, 3, 4, 7, 8,
+        7, 3, 6, 4, 8, 5, 9, 2, 1,
+        3, 5, 7, 8, 4, 1, 2, 9, 6,
+        6, 2, 1, 5, 3, 9, 8, 4, 7,
+        8, 4, 9, 7, 2, 6, 1, 5, 3,
+        1, 7, 8, 6, 9, 4, 5, 3, 2,
+        2, 6, 4, 3, 5, 8, 7, 1, 9,
+        5, 9, 3, 1, 7, 2, 6, 8, 4
+      ]
+      expect(puzzle.board).to eq(result)
+
+    end
+
     it "solves a puzzle that requires guessing"
 
   end
