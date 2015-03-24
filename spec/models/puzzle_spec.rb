@@ -194,7 +194,7 @@ RSpec.describe Puzzle, type: :model do
   end
 
   it "can compare all columns" do
-    medium_puzzle.columns
+    medium_puzzle.compare_columns
     result = [
       0, 0, 0, 9, 0, 7, 0, 0, 0,
       9, 0, 0, 2, 0, 0, 0, 0, 8,
@@ -238,8 +238,7 @@ RSpec.describe Puzzle, type: :model do
         2, 6, 4, 3, 5, 8, 7, 1, 9,
         5, 9, 3, 1, 7, 2, 6, 8, 4
       ]
-      expect(puzzle.board).to eq(result)
-
+      expect(medium_puzzle.board).to eq(result)
     end
 
     it "solves a puzzle that requires guessing"

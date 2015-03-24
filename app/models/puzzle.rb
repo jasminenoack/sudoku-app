@@ -159,16 +159,16 @@ class Puzzle < ActiveRecord::Base
   end
 
   def complete_puzzle
-    incomplete=check_incomplete
+    incomplete = check_incomplete
     while incomplete>0
-      start=incomplete
+      start = incomplete
       solve_squares
-      incomplete=check_incomplete
+      incomplete = check_incomplete
       if incomplete == start
         compare_squares
         compare_rows
         compare_columns
-        incomplete=check_incomplete
+        incomplete = check_incomplete
         if incomplete == start
           break
         end
@@ -262,6 +262,19 @@ class Puzzle < ActiveRecord::Base
 
   def compare_rows
     (0..8).each {|num| compare_row(num)}
+  end
+
+  def compare_column(column)
+    places = []
+    rows = (0..8).to_a
+    places = rows.map { |row| find_index([row, column]) }
+    options = find_set_options(places)
+    singles = compare(options)
+    update_from_compare(singles, options, places)
+  end
+
+  def compare_columns
+    (0..8).each {|num| compare_column(num)}
   end
 
 
@@ -367,18 +380,7 @@ class Puzzle < ActiveRecord::Base
   #
 
   #
-  # def compare_column(column)
-  #   columns=Array.new(9, column)
-  #   rows=(0..8).to_a
-  #   places=rows.zip(columns)
-  #   options=find_options(places)
-  #   singles=compare(options)
-  #   update_from_compare(singles, options, places)
-  # end
-  #
-  # def compare_columns
-  #   (0..8).each {|num| compare_column(num)}
-  # end
+
   #
 
   #
