@@ -73,7 +73,7 @@ class Puzzle < ActiveRecord::Base
   def solvable?
     open_places = available_places
     open_places.each do |place|
-      if check_place(*place).empty?
+      if (*place).empty?
         return false
       end
     end
@@ -101,7 +101,7 @@ class Puzzle < ActiveRecord::Base
     open_places
   end
 
-  def check_place (row, column)
+  def  (row, column)
     index = find_index([row, column])
     return board[index] if board[index] != 0
     check_row(row) & check_column(column) & check_square(row, column)
@@ -183,7 +183,7 @@ class Puzzle < ActiveRecord::Base
   def solve_squares
     (0..8).each do |row|
       (0..8).each do |column|
-        options = check_place(row, column)
+        options = (row, column)
         if options.class == Array && options.length == 1
           board[find_index([row, column])] = options.first
           # @after_guess << [row, column] if @guessed
@@ -196,16 +196,27 @@ class Puzzle < ActiveRecord::Base
   def find_set_options(places)
     options=[]
     places.each do |place|
-      options << check_place(place[0],place[1])
+      options << (*find_pos(place))
     end
     options
   end
 
-
-  # broken
+  def find_square_indexes(row, column)
+    places = []
+    start_row = (row / 3) * 3
+    start_column = (column / 3) * 3
+    (0..2).each do |row_delta|
+      (0..2).each do |column_delta|
+        new_row = start_row + row_delta
+        new_column = start_column + column_delta
+        places << find_index([new_row, new_column])
+      end
+    end
+    places
+  end
 
   def compare_square(row, column)
-    places = get_square(row, column)
+    places = find_square_indexes(row, column)
     options = find_set_options(places)
     singles = compare(options)
     update_from_compare(singles, options, places)
@@ -240,6 +251,19 @@ class Puzzle < ActiveRecord::Base
         compare_square(row*3, column*3)
       end
     end
+  end
+
+  def compare_row(row)
+    rows = Array.new(9, row)
+    columns = (0..8).to_a
+    places = rows.zip(columns)
+    options = find_options(places)
+    singles = compare(options)
+    update_from_compare(singles, options, places)
+  end
+
+  def compare_rows
+    (0..8).each {|num| compare_row(num)}
   end
 
 
@@ -343,18 +367,7 @@ class Puzzle < ActiveRecord::Base
   #
 
   #
-  # def compare_row(row)
-  #   rows=Array.new(9, row)
-  #   columns=(0..8).to_a
-  #   places=rows.zip(columns)
-  #   options=find_options(places)
-  #   singles=compare(options)
-  #   update_from_compare(singles, options, places)
-  # end
-  #
-  # def compare_rows
-  #   (0..8).each {|num| compare_row(num)}
-  # end
+
   #
   # def compare_column(column)
   #   columns=Array.new(9, column)
@@ -379,7 +392,7 @@ class Puzzle < ActiveRecord::Base
   #
   # def pick_empty
   #   available_places.each do |place|
-  #     options=check_place(*place)
+  #     options=(*place)
   #     options.each do |set|
   #       options.each do |num|
   #         next if @incorrect.include?([*place,num])

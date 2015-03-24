@@ -109,6 +109,10 @@ RSpec.describe Puzzle, type: :model do
     0,0,0,1,0,2,0,0,0
   ])
 
+  it "can find indexes within a square #find_square_indexes" do
+    expect(puzzle.find_square_indexes(5,8)).to eq([33, 34, 35, 42, 43, 44, 51, 52, 53])
+  end
+
   it "knows how to compare within a square" do
     medium_puzzle.compare_square(1,1)
     result = [
