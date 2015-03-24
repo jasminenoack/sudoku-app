@@ -201,6 +201,9 @@ class Puzzle < ActiveRecord::Base
     options
   end
 
+
+  # broken
+
   def compare_square(row, column)
     places = get_square(row, column)
     options = find_set_options(places)
