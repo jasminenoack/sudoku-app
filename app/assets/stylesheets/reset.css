@@ -9,9 +9,10 @@ ul, li, h1, h2, h3, h4, h5, h6, p, div, section, article, a, body, html, button,
   text-align: inherit;
   text-decoration: none;
   box-sizing: inherit;
+  outline: 0
 }
 
-button, a {
+button, a, li {
   cursor: pointer;
 }
 

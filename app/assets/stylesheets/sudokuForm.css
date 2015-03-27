@@ -1,15 +1,36 @@
+body {
+  background: #F3843E;
+  font-family: sans-serif;
+}
+
 .square {
   float: left;
-  width: 40px;
-  height: 40px;
+  width: 10px;
+  height: 10px;
   border: 1px solid black;
+  text-align:center;
+  padding: 15px;
+  font-weight: bold;
+}
+
+.square:hover {
+  background: #FF9900;
+}
+
+.square p {
+  top: 50%;
+  display: block;
+  position: relative;
+  transform: translateY(-50%)
 }
 
 .square input {
   top: 50%;
   display: block;
+  width: 10px;
   position: relative;
-  transform: translateY(-50%)
+  transform: translateY(-50%);
+  text-align: center;
 }
 
 .row {
@@ -23,6 +44,7 @@
   height: calc(42px * 9 + 6px);
   margin: 50px auto;
   text-align: center;
+  background: #FF5A09;
 }
 
 .square:nth-child(3n+4) {
@@ -31,12 +53,6 @@
 
 .row:nth-child(3n+4) {
   border-top: 3px solid black;
-}
-
-.square input {
-  display: block;
-  width: 40px;
-  height: 40px;
 }
 
 button {

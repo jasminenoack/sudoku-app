@@ -1,0 +1,42 @@
+.content {
+  color: #393939;
+}
+
+body h1 {
+  font-size: 22px;
+  display: block;
+  text-align: center;
+  padding: 20px;
+  font-weight: 700;
+}
+
+.original {
+  color: #6E6E6E;
+}
+
+.puzzle-index {
+  width: 330px;
+  margin: auto;
+  display: block;
+  text-align: center;
+  padding: 20px;
+  font-weight: 700;
+}
+
+.puzzle-index a {
+  float: left;
+  padding: 0 20px;
+  display: inline-block;
+}
+
+.puzzle-index li {
+  display: inline-block;
+}
+
+.puzzle-index:nth-child(2n) {
+  background: #FF9900;
+}
+
+.puzzle-index:nth-child(2n + 1) {
+  background: #FF5A09;
+}

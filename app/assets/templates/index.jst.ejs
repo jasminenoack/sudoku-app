@@ -1,8 +1,8 @@
 <h1>Puzzles</h1>
-<a href="#puzzles/new">New Puzzle</a>
+<a class="puzzle-index" href="#puzzles/new">New Puzzle</a>
 
 <% puzzles.each(function (puzzle) { %>
-  <ul class="puzzle-index">
+  <ul class="puzzle-index group">
     <a href="#puzzles/<%= puzzle.id %>">
       <li>Puzzle <%= puzzle.id %></li>
     </a>
