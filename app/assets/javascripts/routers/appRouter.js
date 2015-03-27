@@ -3,7 +3,6 @@ Sudoku.Routers.PuzzleRouter = Backbone.Router.extend({
     this.$el = options.$el
     this.collection = new Sudoku.Collections.Puzzle
     this.collection.fetch()
-    console.log("router")
   },
 
   routes: {
@@ -12,14 +11,14 @@ Sudoku.Routers.PuzzleRouter = Backbone.Router.extend({
   },
 
   newForm: function () {
-    var NewView = new Sudoku.Views.New
+    var NewView = new Sudoku.Views.Puzzle({
+      model: new Sudoku.Models.Puzzle
+    })
     this._swapView(NewView)
   },
 
   showPuzzle: function (id) {
-    console.log("show")
     var model = this.collection.getOrFetch(id)
-    console.log(model)
   },
 
   _swapView: function (view) {

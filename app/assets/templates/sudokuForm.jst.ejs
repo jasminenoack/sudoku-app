@@ -1,12 +1,18 @@
 <form class="puzzle">
+
   <% for (i = 0; i < 9; i++) { %>
     <ul class="row group" data-row=<%= i%>>
+
     <% for (j = 0; j < 9; j++) { %>
       <li class="square" data-column=<%= j %> >
-        <input value="" type="text" name="square">
+        <% if (puzzle.get("board")[i * 9 + j] != 0) { %>
+          <%= puzzle.get("board")[i * 9 + j] %>
+        <% } %>
       </li>
     <% } %>
+
     </ul>
   <% } %>
-  <button>Create</button>
+
+  <button>Save</button>
 </form>

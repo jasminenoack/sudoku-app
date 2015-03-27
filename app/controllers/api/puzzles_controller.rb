@@ -10,6 +10,7 @@ include PuzzlesHelper
 
   def create
     @puzzle = Puzzle.new(puzzle_params)
+    @puzzle.setup
     if @puzzle.save
       render json: @puzzle
     else

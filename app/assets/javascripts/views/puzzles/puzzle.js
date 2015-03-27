@@ -1,4 +1,4 @@
-Sudoku.Views.New = Backbone.View.extend({
+Sudoku.Views.Puzzle = Backbone.View.extend({
   initialize: function () {
     this.puzzle = new Sudoku.Models.Puzzle
   },
@@ -6,27 +6,27 @@ Sudoku.Views.New = Backbone.View.extend({
   template: JST["sudokuForm"],
 
   events: {
-    "submit .puzzle":"newPuzzle",
+    "submit .puzzle":"savePuzzle",
   },
 
   render: function () {
-    this.$el.html(this.template())
+    this.$el.html(this.template({puzzle: this.model}))
     return this
   },
 
-  newPuzzle: function (event) {
+  savePuzzle: function (event) {
     event.preventDefault()
     event.stopPropagation()
     this.serializePuzzleForm($(event.currentTarget))
     this.puzzle.save()
   },
-
+  // <input value="" type="text" name="square">
   serializePuzzleForm: function ($target) {
     board = []
     _($target.children()).each(function (row) {
       board = board.concat(this.readRow($(row)))
     }.bind(this))
-    this.puzzle.set("board", board)
+    this.model.set("board", board)
   },
 
   readRow: function ($row) {

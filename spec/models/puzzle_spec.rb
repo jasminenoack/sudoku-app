@@ -286,6 +286,7 @@ describe "it sets up a board" do
   ])}
 
   it "creates the board" do
+    puzzle.setup_puzzle
     expect(puzzle.board).to eq([
       0,0,9,0,5,0,8,0,0,
       3,0,0,0,1,0,2,4,9,
@@ -300,6 +301,7 @@ describe "it sets up a board" do
   end
 
   it "saves the original board" do
+    puzzle.setup_puzzle
     expect(puzzle.original).to eq([
       0,0,9,0,5,0,8,0,0,
       3,0,0,0,1,0,2,4,9,
@@ -314,6 +316,7 @@ describe "it sets up a board" do
   end
 
   it "saves the solution" do
+    puzzle.setup_puzzle
     expect(puzzle.solution).to eq([
       2,7,9,4,5,3,8,6,1,
       3,5,6,8,1,7,2,4,9,
