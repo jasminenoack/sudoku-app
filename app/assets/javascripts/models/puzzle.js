@@ -6,8 +6,10 @@ Sudoku.Models.Puzzle = Backbone.Model.extend({
     }
 
     this.set("board", empty_board)
+    this.set("solution", empty_board)
+    this.set("original", empty_board)
   },
 
-  url: "api/puzzles",
+  urlRoot: "api/puzzles",
 
 })

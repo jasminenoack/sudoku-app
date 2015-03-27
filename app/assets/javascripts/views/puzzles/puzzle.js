@@ -1,6 +1,8 @@
 Sudoku.Views.Puzzle = Backbone.View.extend({
-  initialize: function () {
+  initialize: function (options) {
     this.puzzle = new Sudoku.Models.Puzzle
+    this.board = options.board
+    this.listenTo(this.model, "sync", this.render)
   },
 
   template: JST["sudokuForm"],
@@ -10,7 +12,7 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
   },
 
   render: function () {
-    this.$el.html(this.template({puzzle: this.model}))
+    this.$el.html(this.template({puzzle: this.model, board: this.board}))
     return this
   },
 
