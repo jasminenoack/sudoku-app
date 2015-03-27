@@ -17,6 +17,9 @@ This is a single-page app using Backbone and Rails.
 
 # TECHNOLOGY
 
+* It DRYs up the code by using 2 backbone views for all the pages of the app.
+* It lowers the amount of space used in the database by storing the puzzle as a searialized array instead of individual squares. 
+
 It uses an algorithm that solves a Sudoku problem in 3 steps.
 
 1. It checks the possible options for a block:
