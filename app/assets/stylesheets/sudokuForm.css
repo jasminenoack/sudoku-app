@@ -14,7 +14,7 @@ body {
 }
 
 .square:hover {
-  background: #FF9900;
+  background: #FF5A09;
 }
 
 .square p {
@@ -42,9 +42,9 @@ body {
   display: block;
   width: calc(42px * 9 + 6px);
   height: calc(42px * 9 + 6px);
-  margin: 50px auto;
+  margin: 20px auto;
   text-align: center;
-  background: #FF5A09;
+  background: #FF9900;
 }
 
 .square:nth-child(3n+4) {

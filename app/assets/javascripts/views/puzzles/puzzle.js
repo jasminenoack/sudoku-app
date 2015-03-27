@@ -31,16 +31,18 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
     if ($(event.currentTarget).hasClass("original")) {
       return
     }
-    value = $(event.currentTarget).text()
+    value = $.trim($(event.currentTarget).text())
+    console.log(value)
     $(event.currentTarget).html('<input value="' +
       value +
       '" type="text" name="square">'
     )
     $(event.currentTarget).find("input").focus()
+    console.log($(event.currentTarget).find("input"))
   },
 
   saveInput: function (event) {
-    $(event.currentTarget).replaceWith($(event.currentTarget).val())
+    $(event.currentTarget).replaceWith("<p>" + $(event.currentTarget).val() + "</p>")
   },
 
   serializePuzzleForm: function ($target) {

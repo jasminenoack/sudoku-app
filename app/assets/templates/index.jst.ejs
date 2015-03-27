@@ -1,16 +1,25 @@
 <h1>Puzzles</h1>
-<a class="puzzle-index" href="#puzzles/new">New Puzzle</a>
+<table>
+<tr>
+  <td>
+    <a class="puzzle-index" href="#puzzles/new">New Puzzle</a>
+  </td>
+</tr>
 
 <% puzzles.each(function (puzzle) { %>
-  <ul class="puzzle-index group">
-    <a href="#puzzles/<%= puzzle.id %>">
-      <li>Puzzle <%= puzzle.id %></li>
-    </a>
-    <a href="#puzzles/<%= puzzle.id %>/solution">
-      <li>Solution</li>
-    </a>
-    <a href="#puzzles/<%= puzzle.id %>/original">
-      <li>Original</li>
-    </a>
-  </ul>
+  <tr class="puzzle-index group">
+    <td><a href="#puzzles/<%= puzzle.id %>">
+      Puzzle <%= puzzle.id %>
+    </a></td>
+    <td><a href="#puzzles/<%= puzzle.id %>">
+      Current
+    </a></td>
+    <td><a href="#puzzles/<%= puzzle.id %>/solution">
+      Solution
+    </a></td>
+    <td><a href="#puzzles/<%= puzzle.id %>/original">
+      Original
+    </a></td>
+  </tr>
 <% }) %>
+</table>
