@@ -24,9 +24,9 @@ include PuzzlesHelper
   end
 
   def update
-    # find_puzzle
-    # @puzzle.update(puzzle_params)
-    # redirect_to action: :solve
+    find_puzzle
+    @puzzle.update(puzzle_params)
+    render json: @puzzle
   end
 
   def destroy
