@@ -23,7 +23,8 @@ Sudoku.Routers.PuzzleRouter = Backbone.Router.extend({
   newForm: function () {
     var NewView = new Sudoku.Views.Puzzle({
       model: new Sudoku.Models.Puzzle,
-      board: "board"
+      board: "board",
+      collection: this.collection
     })
     this._swapView(NewView)
   },
@@ -32,7 +33,8 @@ Sudoku.Routers.PuzzleRouter = Backbone.Router.extend({
     var model = this.collection.getOrFetch(id)
     var ShowView = new Sudoku.Views.Puzzle({
       model: model,
-      board: "board"
+      board: "board",
+      collection: this.collection
     })
     this._swapView(ShowView)
   },
@@ -41,7 +43,8 @@ Sudoku.Routers.PuzzleRouter = Backbone.Router.extend({
     var model = this.collection.getOrFetch(id)
     var SolutionView = new Sudoku.Views.Puzzle({
       model: model,
-      board: "solution"
+      board: "solution",
+      collection: this.collection
     })
     this._swapView(SolutionView)
   },
@@ -50,7 +53,8 @@ Sudoku.Routers.PuzzleRouter = Backbone.Router.extend({
     var model = this.collection.getOrFetch(id)
     var originalView = new Sudoku.Views.Puzzle({
       model: model,
-      board: "original"
+      board: "original",
+      collection: this.collection
     })
     this._swapView(originalView)
   },

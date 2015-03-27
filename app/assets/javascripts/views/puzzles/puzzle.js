@@ -22,6 +22,7 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
     event.stopPropagation()
     this.serializePuzzleForm($(event.currentTarget))
     this.model.save()
+    this.collection.add(this.model, {merge: true})
   },
   //
   addForm: function (event) {

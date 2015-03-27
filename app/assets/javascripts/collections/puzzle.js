@@ -8,6 +8,7 @@ Sudoku.Collections.Puzzles = Backbone.Collection.extend({
 
     if (!puzzle) {
       puzzle = new Sudoku.Models.Puzzle({id: id})
+      this.add(puzzle)
     }
 
     puzzle.fetch()
