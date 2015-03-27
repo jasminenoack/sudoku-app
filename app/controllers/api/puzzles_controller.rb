@@ -10,7 +10,7 @@ include PuzzlesHelper
 
   def create
     @puzzle = Puzzle.new(puzzle_params)
-    @puzzle.setup
+    @puzzle.setup_puzzle
     if @puzzle.save
       render json: @puzzle
     else
@@ -21,14 +21,6 @@ include PuzzlesHelper
   def show
     find_puzzle
     render json: @puzzle
-  end
-
-  def edit
-    # find_puzzle
-  end
-
-  def solve
-    # find_puzzle
   end
 
   def update
@@ -43,19 +35,7 @@ include PuzzlesHelper
     # redirect_to puzzles_path
   end
 
-  def display_original
-    # find_puzzle
-  end
-
-  def display_solution
-    find_puzzle
-  end
-
-  def revert_puzzle
-    # find_puzzle
-    # @puzzle.revert
-    # redirect_to puzzle_path(@puzzle.id)
-  end
+  private
 
   def puzzle_params
     params.require(:puzzle).permit(board: [])

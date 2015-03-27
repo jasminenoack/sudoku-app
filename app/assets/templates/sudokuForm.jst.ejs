@@ -5,7 +5,10 @@
 
     <% for (j = 0; j < 9; j++) { %>
       <li class="square
-      <% if (puzzle.get(board)[i * 9 + j] === puzzle.get("original")[i * 9 + j]) { %>
+      <% if (puzzle.get(board)[i * 9 + j] ===
+        puzzle.get("original")[i * 9 + j] &&
+        puzzle.get(board)[i * 9 + j] != 0
+      ) { %>
       original
       <% } %>"
       data-column=<%= j %> >

@@ -1,6 +1,5 @@
 Sudoku.Views.Puzzle = Backbone.View.extend({
   initialize: function (options) {
-    this.puzzle = new Sudoku.Models.Puzzle
     this.board = options.board
     this.listenTo(this.model, "sync", this.render)
   },
@@ -9,6 +8,8 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
 
   events: {
     "submit .puzzle":"savePuzzle",
+    "click .square": "addForm",
+    "blur input": "saveInput"
   },
 
   render: function () {
@@ -20,9 +21,27 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
     event.preventDefault()
     event.stopPropagation()
     this.serializePuzzleForm($(event.currentTarget))
-    this.puzzle.save()
+    this.model.save()
   },
-  // <input value="" type="text" name="square">
+  //
+  addForm: function (event) {
+    event.preventDefault()
+    event.stopPropagation()
+    if ($(event.currentTarget).hasClass("original")) {
+      return
+    }
+    value = $(event.currentTarget).text()
+    $(event.currentTarget).html('<input value="' +
+      value +
+      '" type="text" name="square">'
+    )
+    $(event.currentTarget).find("input").focus()
+  },
+
+  saveInput: function (event) {
+    $(event.currentTarget).replaceWith($(event.currentTarget).val())
+  },
+
   serializePuzzleForm: function ($target) {
     board = []
     _($target.children()).each(function (row) {
@@ -34,7 +53,7 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
   readRow: function ($row) {
     rowValues = []
     _($row.children()).each(function (square) {
-      rowValues.push($(square).children()[0].value || 0)
+      rowValues.push($(square).text() || 0)
     })
     return rowValues
   },

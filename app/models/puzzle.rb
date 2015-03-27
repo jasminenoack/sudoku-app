@@ -3,6 +3,10 @@ class Puzzle < ActiveRecord::Base
   serialize :original
   serialize :solution
 
+  def board=(board)
+    super(board.map(&:to_i))
+  end
+
   def setup_puzzle
     self.original = board
     self.solution = solve_puzzle
