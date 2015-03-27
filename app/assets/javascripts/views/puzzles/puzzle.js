@@ -21,8 +21,12 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
     event.preventDefault()
     event.stopPropagation()
     this.serializePuzzleForm($(event.currentTarget))
-    this.model.save()
-    this.collection.add(this.model, {merge: true})
+    this.model.save({},{
+      success: function () {
+        this.collection.add(this.model, {merge: true})
+        Backbone.history.navigate("puzzles/" + this.model.id, {trigger: true})
+      }.bind(this)
+    })
   },
   //
   addForm: function (event) {
@@ -32,13 +36,11 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
       return
     }
     value = $.trim($(event.currentTarget).text())
-    console.log(value)
     $(event.currentTarget).html('<input value="' +
       value +
       '" type="text" name="square">'
     )
     $(event.currentTarget).find("input").focus()
-    console.log($(event.currentTarget).find("input"))
   },
 
   saveInput: function (event) {

@@ -17,6 +17,10 @@ body {
   background: #FF5A09;
 }
 
+.square.original:hover {
+  background: #FF9900;
+}
+
 .square p {
   top: 50%;
   display: block;
@@ -55,6 +59,6 @@ body {
   border-top: 3px solid black;
 }
 
-button {
+button, a {
   padding: 10px;
 }

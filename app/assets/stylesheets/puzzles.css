@@ -39,3 +39,11 @@ table  {
 .puzzle-index:nth-child(2n + 1) {
   background: #FF5A09;
 }
+
+.instructions {
+  width: 500px;
+  margin: auto;
+  padding: 10px;
+  display: block;
+  text-align: center;
+}

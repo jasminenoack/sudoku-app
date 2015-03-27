@@ -1,4 +1,7 @@
 <h1>Puzzle <%= puzzle.id %></h1>
+<p class="instructions"> Edit boxes by clicking on them. You cannot edit the original boxes indicated by a lighter color.</p>
+<p class="instructions"> To view the solution, or restart from the original use the links at the bottom of the page.</p>
+<p class="instructions"> To update the current state of the puzzle use the save button.</p>
 <form class="puzzle">
 
   <% for (i = 0; i < 9; i++) { %>
@@ -24,4 +27,7 @@
 
   <button>Save</button>
   <a href="#">Back</a>
+  <a href="#puzzles/<%= puzzle.id %>">Current</a>
+  <a href="#puzzles/<%= puzzle.id %>/solution">Solution</a>
+  <a href="#puzzles/<%= puzzle.id %>/original">Original</a>
 </form>
