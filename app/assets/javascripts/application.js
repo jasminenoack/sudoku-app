@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require serializeJSON
-//= require turbolinks
 //= require underscore
 //= require backbone
 //= require sudoku
