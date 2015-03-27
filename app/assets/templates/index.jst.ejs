@@ -1,0 +1,15 @@
+<h1>Puzzles</h1>
+
+<% puzzles.each(function (puzzle) { %>
+  <ul class="puzzle-index">
+    <a href="#puzzles/<%= puzzle.id %>">
+      <li>Puzzle <%= puzzle.id %></li>
+    </a>
+    <a href="#puzzles/<%= puzzle.id %>/solution">
+      <li>Solution</li>
+    </a>
+    <a href="#puzzles/<%= puzzle.id %>/original">
+      <li>Original</li>
+    </a>
+  </ul>
+<% }) %>

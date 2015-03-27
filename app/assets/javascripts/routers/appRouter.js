@@ -6,10 +6,18 @@ Sudoku.Routers.PuzzleRouter = Backbone.Router.extend({
   },
 
   routes: {
+    "": "index",
     "puzzles/new" : "newForm",
     "puzzles/:id": "showPuzzle",
     "puzzles/:id/solution": "solutionPuzzle",
     "puzzles/:id/original": "originalPuzzle",
+  },
+
+  index: function () {
+    var indexView = new Sudoku.Views.Index({
+      collection: this.collection
+    })
+    this._swapView(indexView)
   },
 
   newForm: function () {
