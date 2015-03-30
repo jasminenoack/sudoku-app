@@ -17,6 +17,7 @@ This is a single-page app using Backbone and Rails.
 
 # TECHNOLOGY
 
+* Solves a Sudoku problem as a graph coloring problem.
 * It DRYs up the code by using 2 backbone views for all the pages of the app.
 * It lowers the amount of space used in the database by storing the puzzle as a searialized array instead of individual squares. 
 * Includes RSpec model tests. 
