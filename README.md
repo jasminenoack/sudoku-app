@@ -1,3 +1,4 @@
+[![Code Climate](https://codeclimate.com/github/jasminenoack/sudoku-app/badges/gpa.svg)](https://codeclimate.com/github/jasminenoack/sudoku-app)
 [![Test Coverage](https://codeclimate.com/github/jasminenoack/sudoku-app/badges/coverage.svg)](https://codeclimate.com/github/jasminenoack/sudoku-app)
 
 # Sudoku on Rails
@@ -21,8 +22,8 @@ This is a single-page app using Backbone and Rails.
 
 * Solves a Sudoku problem as a graph coloring problem.
 * It DRYs up the code by using 2 backbone views for all the pages of the app.
-* It lowers the amount of space used in the database by storing the puzzle as a searialized array instead of individual squares. 
-* Includes RSpec model tests. 
+* It lowers the amount of space used in the database by storing the puzzle as a searialized array instead of individual squares.
+* Includes RSpec model tests.
 
 It uses an algorithm that solves a Sudoku problem in 3 steps.
 
