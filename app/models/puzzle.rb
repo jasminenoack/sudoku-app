@@ -271,16 +271,19 @@ class Puzzle < ActiveRecord::Base
   end
 
   def pick_empty
-    available_places.each do |place|
-      options = check_place(*place)
-      options.each do |set|
-        options.each do |num|
-          next if @incorrect.include?([*place,num])
-          return [*place, num]
-        end
-      end
+    places_options = {}
+    available_places.map { |place| places_options[place] = check_place(*place) }
+
+    @incorrect.each do |set|
+      next if places_options[[set[0], set[1]]].nil?
+      places_options[[set[0], set[1]]].delete(set[2])
+      places_options.delete([set[0], set[1]]) if places_options[[set[0], set[1]]].empty?
     end
-    nil
+
+    places_options = places_options.sort_by { |key, value| value.length}
+
+    place = places_options.first
+    return [*place[0], place[1].first]
   end
 
   def take_a_guess(nums)
@@ -313,7 +316,6 @@ class Puzzle < ActiveRecord::Base
   end
 
   def given
-    debugger
     original.reject { |num| num == 0 }.count
   end
 
