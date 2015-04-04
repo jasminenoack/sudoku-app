@@ -11,6 +11,7 @@ class Puzzle < ActiveRecord::Base
     self.original = board
     self.solution = solve_puzzle
     self.board = self.original
+    self
   end
 
   def display
@@ -309,6 +310,11 @@ class Puzzle < ActiveRecord::Base
 
   def revert
     board = original
+  end
+
+  def given
+    debugger
+    original.reject { |num| num == 0 }.count
   end
 
 end
