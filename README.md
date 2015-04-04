@@ -1,3 +1,5 @@
+[![Test Coverage](https://codeclimate.com/github/jasminenoack/sudoku-app/badges/coverage.svg)](https://codeclimate.com/github/jasminenoack/sudoku-app)
+
 # Sudoku on Rails
 
 [Live](http://sudoku-on-rails.herokuapp.com/)
