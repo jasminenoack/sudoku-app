@@ -24,26 +24,36 @@ module GuessLogic
   end
 
   def backtrack
+    guess = prev_guess
+    clear_guess(guess.take(2))
+    options = options_vs_incorrect(*guess.take(2))
+    if options.empty?
+      backtrack
+    end
+  end
+
+  def prev_guess
     loop do
-      break if @after_guess.empty?
       guess = @after_guess.pop
       if guess[0]=="mg"
         guess = @guess.pop
         @incorrect << guess
-        board[find_index(guess.take(2))] = 0
-
-        options = check_place(*guess.take(2))
-        wrong = @incorrect
-          .select { |array| array[0..1] == guess[0..1] }
-          .map { |array| array[2] }
-        options -= wrong
-
-        if !options.empty?
-          break
-        end
+        return guess
       else
-        board[find_index(guess)] = 0
+        clear_guess(guess.take(2))
       end
     end
+  end
+
+  def clear_guess(place)
+    board[find_index(place)] = 0
+  end
+
+  def options_vs_incorrect(*place)
+    options = check_place(*place)
+    wrong = @incorrect
+      .select { |array| array[0..1] == place }
+      .map { |array| array[2] }
+    options - wrong
   end
 end
