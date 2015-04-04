@@ -1,8 +1,3 @@
-require_relative "simple_logic.rb"
-require_relative "complex_logic.rb"
-require_relative "guess_logic.rb"
-
-
 module Solver
   # base methods to solve the board
   include SimpleLogic

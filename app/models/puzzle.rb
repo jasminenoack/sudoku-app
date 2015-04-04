@@ -1,6 +1,3 @@
-require_relative 'modules/solver.rb'
-require_relative 'modules/board_info.rb'
-
 class Puzzle < ActiveRecord::Base
   include Solver
   include BoardInfo
