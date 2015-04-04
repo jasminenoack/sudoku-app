@@ -298,13 +298,20 @@ class Puzzle < ActiveRecord::Base
     loop do
       break if @after_guess.empty?
       guess = @after_guess.pop
-      if guess[0]=="mg" && guess[1] == 0
+      if guess[0]=="mg"
         guess = @guess.pop
         @incorrect << guess
-        board[find_index(guess)] = 0
-      elsif guess[0]=="mg"
-        guess=@guess.pop
-        board[find_index(guess)] = 0
+        board[find_index(guess.take(2))] = 0
+
+        options = check_place(*guess.take(2))
+        wrong = @incorrect
+          .select { |array| array[0..1] == guess[0..1] }
+          .map { |array| array[2] }
+        options -= wrong
+
+        if !options.empty?
+          break
+        end
       else
         board[find_index(guess)] = 0
       end
