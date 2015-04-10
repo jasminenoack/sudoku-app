@@ -10,14 +10,23 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
     "submit .puzzle":"savePuzzle",
     "click .square": "addForm",
     "blur input": "saveInput",
-    "click .selectors li": "hightlight"
+    "click .selectors li": "highlight",
+    "keypress input": "disableEnter"
+  },
+
+  disableEnter: function (e) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      this.saveInput(e)
+      return false;
+    }
   },
 
   render: function () {
     this.$el.html(this.template({
       puzzle: this.model,
       board: this.board,
-      hightlight: this.highlight
+      highlight: this.highlight
       }))
     return this
   },
@@ -41,6 +50,7 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
       return
     }
     value = $.trim($(event.currentTarget).text())
+    console.log("event", $(event.currentTarget).text())
     $(event.currentTarget).html('<input value="' +
       value +
       '" type="text" name="square">'
@@ -50,12 +60,17 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
 
   saveInput: function (event) {
     event.preventDefault()
-    var row = $(event.currentTarget).parent().parent().data("row")
-    var column = $(event.currentTarget).parent().data("column")
+    var $li = $(event.currentTarget).parent()
+    var row = $li.parent().data("row")
+    var column =  $li.data("column")
     var num = $(event.currentTarget).val()
     this.model.get("board")[row * 9 + column] = num
+    $li.html("<p>" + num + "</p>")
     this.board = "board"
-    this.render()
+    if (num == this.highlight) {
+      $li.addClass("highlight")
+    }
+
   },
 
   serializePuzzleForm: function ($target) {
@@ -74,7 +89,7 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
     return rowValues
   },
 
-  hightlight: function (event) {
+  highlight: function (event) {
     this.highlight = $(event.target).text()
     this.render()
   },
