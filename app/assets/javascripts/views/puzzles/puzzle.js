@@ -49,7 +49,13 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
   },
 
   saveInput: function (event) {
-    $(event.currentTarget).replaceWith("<p>" + $(event.currentTarget).val() + "</p>")
+    event.preventDefault()
+    var row = $(event.currentTarget).parent().parent().data("row")
+    var column = $(event.currentTarget).parent().data("column")
+    var num = $(event.currentTarget).val()
+    this.model.get("board")[row * 9 + column] = num
+    this.board = "board"
+    this.render()
   },
 
   serializePuzzleForm: function ($target) {
