@@ -9,11 +9,16 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
   events: {
     "submit .puzzle":"savePuzzle",
     "click .square": "addForm",
-    "blur input": "saveInput"
+    "blur input": "saveInput",
+    "click .selectors li": "hightlight"
   },
 
   render: function () {
-    this.$el.html(this.template({puzzle: this.model, board: this.board}))
+    this.$el.html(this.template({
+      puzzle: this.model,
+      board: this.board,
+      hightlight: this.highlight
+      }))
     return this
   },
 
@@ -28,7 +33,7 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
       }.bind(this)
     })
   },
-  //
+
   addForm: function (event) {
     event.preventDefault()
     event.stopPropagation()
@@ -61,5 +66,10 @@ Sudoku.Views.Puzzle = Backbone.View.extend({
       rowValues.push($(square).text() || 0)
     })
     return rowValues
+  },
+
+  hightlight: function (event) {
+    this.highlight = $(event.target).text()
+    this.render()
   },
 })

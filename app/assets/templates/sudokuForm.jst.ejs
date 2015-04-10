@@ -3,8 +3,6 @@
 <p class="instructions"> To view the solution, or restart from the original use the links at the bottom of the page.</p>
 <p class="instructions"> To update the current state of the puzzle use the save button.</p>
 
-
-
 <form class="puzzle">
   <% for (i = 0; i < 9; i++) { %>
     <ul class="row group" data-row=<%= i%>>
@@ -15,7 +13,12 @@
           puzzle.get(board)[i * 9 + j] != 0
         ) { %>
         original
-        <% } %>"
+        <% } %>
+        <% if (puzzle.get(board)[i * 9 + j] == hightlight) { %>
+        hightlight
+        <% } %>
+        "
+
         data-column=<%= j %> >
           <% if (puzzle.get(board)[i * 9 + j] != 0) { %>
             <p><%= puzzle.get(board)[i * 9 + j] %></p>

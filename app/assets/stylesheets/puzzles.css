@@ -66,3 +66,7 @@ table  {
   padding: 11px 15px;
   font-weight: bold;
 }
+
+.hightlight {
+  background: #ADD8E6;
+}
