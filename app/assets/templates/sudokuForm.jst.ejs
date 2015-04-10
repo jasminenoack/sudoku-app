@@ -2,28 +2,40 @@
 <p class="instructions"> Edit boxes by clicking on them. You cannot edit the original boxes indicated by a lighter color.</p>
 <p class="instructions"> To view the solution, or restart from the original use the links at the bottom of the page.</p>
 <p class="instructions"> To update the current state of the puzzle use the save button.</p>
-<form class="puzzle">
 
+
+
+<form class="puzzle">
   <% for (i = 0; i < 9; i++) { %>
     <ul class="row group" data-row=<%= i%>>
-
-    <% for (j = 0; j < 9; j++) { %>
-      <li class="square
-      <% if (puzzle.get(board)[i * 9 + j] ===
-        puzzle.get("original")[i * 9 + j] &&
-        puzzle.get(board)[i * 9 + j] != 0
-      ) { %>
-      original
-      <% } %>"
-      data-column=<%= j %> >
-        <% if (puzzle.get(board)[i * 9 + j] != 0) { %>
-          <p><%= puzzle.get(board)[i * 9 + j] %></p>
-        <% } %>
-      </li>
-    <% } %>
-
+      <% for (j = 0; j < 9; j++) { %>
+        <li class="square
+        <% if (puzzle.get(board)[i * 9 + j] ===
+          puzzle.get("original")[i * 9 + j] &&
+          puzzle.get(board)[i * 9 + j] != 0
+        ) { %>
+        original
+        <% } %>"
+        data-column=<%= j %> >
+          <% if (puzzle.get(board)[i * 9 + j] != 0) { %>
+            <p><%= puzzle.get(board)[i * 9 + j] %></p>
+          <% } %>
+        </li>
+      <% } %>
     </ul>
   <% } %>
+
+  <ul class="selectors group">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+  </ul>
 
   <button>Save</button>
   <a href="#">Back</a>

@@ -47,3 +47,22 @@ table  {
   display: block;
   text-align: center;
 }
+
+.selectors {
+  background: blue;
+  width: 378px;
+  margin: auto;
+  border: 1px solid black;
+  margin-top: 20px;
+}
+
+.selectors li {
+  background: yellow;
+  float: left;
+  width: 10px;
+  height: 18px;
+  border: 1px solid black;
+  text-align:center;
+  padding: 11px 15px;
+  font-weight: bold;
+}
